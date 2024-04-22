@@ -17,15 +17,16 @@ apiRequest.interceptors.request.use((config) => {
 // LOGIN USER
 export const userLogin = async (dispatch,user) => {
   dispatch(userLoginStart())
-  if (user.email === '' || user.password === '') {
+  if (user.email === '' & user.telephone === '' || user.password === '') {
     dispatch(userLoginFailure('All fields are required'))
     setTimeout(() => {
       dispatch(userLoginFailure(null))
     }, 5000)
   } else{
     try {
-      const res = await apiRequest.post('/users/login',user, { timeout: 30000 })
-      dispatch(userLoginSuccess(res.data.data))
+      // const res = await apiRequest.post('/users/login',user, { timeout: 30000 })
+      // dispatch(userLoginSuccess(res.data.data))
+      console.log('User Logged In', user)
       AuthService.setToken(res.data.token)
     } catch (error) {
       if (error.response) {
