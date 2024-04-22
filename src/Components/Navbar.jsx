@@ -66,11 +66,11 @@ const Navbar = () => {
   }
 
   return (
-    <div className={`h-16 px-4 md:px-20 sticky top-0 z-50 bg-white flex items-center justify-between ${navbarBorder && 'shadow-md'}`}>
+    <div className={`h-16 sticky top-0 z-50 bg-white flex items-center justify-between ${navbarBorder && 'shadow-md'}`}>
       <Notification failure={notification} color={!notification? 'green' : 'red'} />
       <img src={ menuIcon } alt='menu-icon' className='lg:hidden' onClick={() => setToggleMenu(!toggleMenu)}/>
       <NavLink to='/'>
-      <h1 className="">SaveDirectly</h1>
+      <h1 className="text-2xl font-bold">Save<span className='text-orange-600'>Directly</span></h1>
       </NavLink>
       <div className='flex items-center justify-between'>
         <div className='hidden lg:flex items-center justify-between'>
