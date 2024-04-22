@@ -7,7 +7,7 @@ const App = () => {
 
   return (
     <>
-      <div className='px-4 md:px-32 bg-white text-main'>
+      <div className='px-4 md:px-8 lg:px-32 bg-white text-main'>
         <Navbar />
         <div className='min-h-[50vh]'>
           <Outlet />

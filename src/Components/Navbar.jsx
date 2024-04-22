@@ -2,6 +2,7 @@ import React,{ useState }  from 'react'
 import { NavLink, Link } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 
+import { navigations } from '../Constants/navigations'
 import Notification from './Notification'
 import useClickOutside from '../Hooks/useClickOutside'
 import menuIcon from '../Assets/Icons/menu.svg'
@@ -26,7 +27,7 @@ const Navbar = () => {
   const dropDownMenuRef = useClickOutside(closeMenu)
   const dropDownProfilRef = useClickOutside(closeProfile)
 
-  const navLinkActive = 'border-b-4 border-headers text-headers ease-in duration-200'
+  const navLinkActive = 'border-b-4 border-blue-300 text-headers ease-in duration-200'
   const changeBackground=() => {
     if(window.scrollY>=60){
       setNavbarBorder(true)
@@ -70,32 +71,15 @@ const Navbar = () => {
       <Notification failure={notification} color={!notification? 'green' : 'red'} />
       <img src={ menuIcon } alt='menu-icon' className='lg:hidden' onClick={() => setToggleMenu(!toggleMenu)}/>
       <NavLink to='/'>
-      <h1 className="text-2xl font-bold">Save<span className='text-orange-600'>Directly</span></h1>
+      <h1 className="text-2xl font-bold">Save<span className='text-blue-700'>Directly</span></h1>
       </NavLink>
       <div className='flex items-center justify-between'>
         <div className='hidden lg:flex items-center justify-between'>
-          <NavLink to='/about' className={({ isActive }) => isActive? navLinkActive : ''}>
-            <span className='text-xl font-semibold mx-2'>About</span>
-          </NavLink>
-          <NavLink to='/services' className={({ isActive }) => isActive? navLinkActive : ''}>
-            <span className='text-xl font-semibold mx-2'>Services</span>
-          </NavLink>
-          <NavLink to='/projects' className={({ isActive }) => isActive? navLinkActive : ''}>
-            <span className='text-xl font-semibold mx-2'>Projects</span>
-          </NavLink>
-          <NavLink to='/contacts' className={({ isActive }) => isActive? navLinkActive : ''}>
-            <span className='text-xl font-semibold mx-2'>Contact Us</span>
-          </NavLink>
-          <NavLink to='/blog' className={({ isActive }) => isActive? navLinkActive : ''}>
-            <span className='text-xl font-semibold mx-2'>Blog</span>
-          </NavLink>
-          <NavLink to='/reviews' className={({ isActive }) => isActive? navLinkActive : ''}>
-            <span className='text-xl font-semibold mx-2'>Reviews</span>
-          </NavLink>
-          {currentUser?.userType === false &&
-            <NavLink to='/dashboard' className={({ isActive }) => isActive? navLinkActive : ''}>
-              <span className='text-xl font-semibold mx-2'>Dashboard</span>
+          {navigations.map((nav) => (
+            <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? navLinkActive : ''}>
+              <span className='text-xl font-semibold mx-2'>{nav.name}</span>
             </NavLink>
+            ))
           }
         </div>
         {!currentUser?
@@ -162,35 +146,12 @@ const Navbar = () => {
       {toggleMenu &&
         <div data-testid='mobile-menu' className='absolute top-16 left-0 right-0 lg:hidden flex flex-col items-center justify-between
          bg-white p-4 border' ref={ dropDownMenuRef }>
-          <NavLink to='/about' className={({ isActive }) => isActive? 'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
+          {navigations.map((nav) => (
+            <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive?  'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
             : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeMenu }>
-            <span className='text-xl font-semibold'>About</span>
-          </NavLink>
-          <NavLink to='/services' className={({ isActive }) => isActive? 'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
-            : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeMenu }>
-            <span className='text-xl font-semibold py-2'>Services</span>
-          </NavLink>
-          <NavLink to='/projects' className={({ isActive }) => isActive? 'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
-            : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeMenu }>
-            <span className='text-xl font-semibold py-2'>Projects</span>
-          </NavLink>
-          <NavLink to='/contacts' className={({ isActive }) => isActive? 'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
-            : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeMenu }>
-            <span className='text-xl font-semibold py-2'>Contact Us</span>
-          </NavLink>
-          <NavLink to='/blog' className={({ isActive }) => isActive? 'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
-            : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeMenu }>
-            <span className='text-xl font-semibold py-2'>Blog</span>
-          </NavLink>
-          <NavLink to='/reviews' className={({ isActive }) => isActive? 'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
-            : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeMenu }>
-            <span className='text-xl font-semibold py-2'>Reviews</span>
-          </NavLink>
-          {currentUser?.userType === false &&
-          <NavLink to='/dashboard' className={({ isActive }) => isActive? 'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
-            : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeMenu }>
-            <span className='text-xl font-semibold py-2'>Dashboard</span>
-          </NavLink>
+              <span className='text-xl font-semibold'>{nav.name}</span>
+            </NavLink>
+            ))
           }
         </div>
       }
