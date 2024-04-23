@@ -71,9 +71,9 @@ const Navbar = () => {
       <Notification failure={notification} color={!notification? 'green' : 'red'} />
       <img src={ menuIcon } alt='menu-icon' className='lg:hidden' onClick={() => setToggleMenu(!toggleMenu)}/>
       <NavLink to='/'>
-      <h1 className="text-2xl font-bold">Save<span className='text-blue-700'>Directly</span></h1>
+      <h1 className="text-2xl font-bold">Save<span className='text-main'>Directly</span></h1>
       </NavLink>
-      <div className='flex items-center justify-between'>
+      {/* <div className='flex items-center justify-between'>
         <div className='hidden lg:flex items-center justify-between'>
           {navigations.map((nav) => (
             <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? navLinkActive : ''}>
@@ -92,7 +92,7 @@ const Navbar = () => {
               <p className='text-white font-bold text-2xl'>{currentUser?.userName?.slice(0,2).toUpperCase()}</p>}
           </div>
         }
-      </div>
+      </div> */}
       {toggleProfile && currentUser?.userType !== false &&
         <div data-testid='profile-dropdown' className='absolute top-[70px] right-4 md:right-20 shadow-xl bg-gray-100 min-w-[270px] p-2 rounded-xl' ref={ dropDownProfilRef }>
           <div className="bg-white rounded-xl flex flex-col items-center justify-start py-4">

@@ -8,7 +8,7 @@ import { userLogin } from '../Redux/ApiCalls'
 import eye from '../Assets/Icons/eye.svg'
 import eyeCrossed from '../Assets/Icons/eye-crossed.svg'
 
-const Login = () => {
+const Registration = () => {
   const dispatch = useDispatch()
   const { isFetching,error } = useSelector(state => state.currentUser)
   const [selectedUserType, setSelectedUserType] = useState('CLIENT')
@@ -42,7 +42,7 @@ const Login = () => {
   return (
     <div className='my-16'>
       <Notification failure={error} color={'red'} />
-      <h2 className='mb-8 text-4xl font-bold text-center text-main'>Sign In</h2>
+      <h2 className='mb-8 text-4xl font-bold text-center text-main'>Sign Up</h2>
       <div className="flex items-center justify-center">
         <form className='w-full md:w-2/3 lg:w-1/3 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
           <div className='flex items-center justify-between mb-4'>
@@ -83,13 +83,12 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <p className='my-2'>Don&#39;t you have an account?
-            <Link to='/register'><span className='text-main font-bold ml-1'>Sign Up</span></Link>
+          <p className='my-2'>Do you have an account?
+            <Link to='/login'><span className='text-main font-bold ml-1'>Sign In</span></Link>
           </p>
-          <Link to='/forgetPassword'><p className='text-main font-bold my-2'>Forgot Password?</p></Link>
           <button type='submit' className='flex items-center justify-start px-4 py-2 text-md text-white bg-main rounded-lg font-semibold shadow-sm' disabled={isFetching}>
             {isFetching && <div className="loading-spinner w-full mr-2"><Loading color={'white'} /></div>}
-            {isFetching? 'Logging...' : 'Login In'}
+            {isFetching? 'Registering...' : 'Sign Up'}
           </button>
         </form>
       </div>
@@ -97,4 +96,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default Registration
