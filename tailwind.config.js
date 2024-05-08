@@ -6,8 +6,7 @@ export default {
   ],
   theme: {
     fontFamily: {
-      'Condensed': 'Avenir Next, sans-serif',
-      'Standard': 'Avenir Next standard, sans-serif'
+      'Manrope': 'Manrope',
     },
     screens: {
       'sm': '640px',

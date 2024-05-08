@@ -10,10 +10,10 @@ import Navbar from "./Components/Navbar"
 const App = () => {
 
   return (
-    <div className="text-Manrope">
+    <div className="font-Manrope">
       <Router>
         <Navbar />
-        <div className="h-[80vh]">
+        <div className="min-h-[80vh]">
           <Routes>
             <Route path="/*" element={<PrivateRoutes><MyRoutes /></PrivateRoutes>} />
             <Route path="/login" element={<Login/>} />

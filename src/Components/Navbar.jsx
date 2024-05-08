@@ -33,11 +33,14 @@ const Navbar = () => {
 
   return (
     <div className='h-[10vh] sticky top-0 z-50 bg-main-dark flex items-center justify-between px-4 lg:px-24'>
-      <img src={ menuIcon } alt='menu-icon' className='lg:hidden' onClick={() => setToggleMenu(!toggleMenu)}/>
-      <NavLink to='/'>
-        <h1 className="text-xl">Save<span className='text-main'>Directly</span></h1>
-      </NavLink>
-      <div className='flex items-center justify-between'>
+      <div className="flex-1">
+        <img src={ menuIcon } alt='menu-icon' className='lg:hidden' onClick={() => setToggleMenu(!toggleMenu)}/>
+        <NavLink to='/'>
+          <h1 className="text-xl">Save<span className='text-main'>Directly</span></h1>
+        </NavLink>
+      </div>
+
+      <div className='flex-1 flex items-center justify-between'>
         <div className='hidden lg:flex items-center justify-between'>
           {navigations.map((nav) => (
             <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? navLinkActive : ''}>
@@ -47,9 +50,14 @@ const Navbar = () => {
           }
         </div>
         {!currentUser?
-          <Link to='/login' className="bg-main ml-4 rounded-lg hover:bg-strong">
-            <button className='text-xl font-semibold px-4 py-1 text-white'>Login</button>
-          </Link> :
+          <div className="flex items-center gap-1">
+            <Link to='/login'>
+              <button className='text-md md:text-xl font-semibold px-4 py-1 text-main hover:text-orange-500'>LOGIN</button>
+            </Link>
+            <Link to='/register' className="bg-main ml-4 rounded-lg hover:bg-orange-500">
+              <button className='text-md md:text-xl font-semibold px-4 py-2 text-white'>REGISTER</button>
+            </Link>
+          </div>:
           <div
             className='w-[40px] h-[40px] rounded-full bg-headers flex items-center justify-center ml-4 cursor-pointer border-2 border-white'
             onClick={() => setToggleProfile(!toggleProfile)}>
@@ -72,9 +80,6 @@ const Navbar = () => {
               }
 
             </div>
-            <Link to='/resetUserPassword' className='my-4 '>
-              <p className='text-center underline underline-offset-2 text-headers cursor-pointer'>change password</p>
-            </Link>
             <hr className='border border-gray-200 w-[90%]'/>
             <div data-testid='logout-button' className="flex items-center justify-start cursor-pointer hover:bg-gray-100 px-4 py-2 mt-4 rounded-xl" onClick={ logOut }>
               <img src={ logoutIcon } alt="logoutIcon" className="mr-4 h-4 w-4" />

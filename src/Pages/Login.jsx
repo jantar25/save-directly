@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 
+import { MenuOption } from '../Utils/MenuOptions'
 import { countryCodeOptions } from '../Constants/navigations'
 import useClickOutside from '../Hooks/useClickOutside'
 import Notification from '../Components/Notification'
@@ -56,22 +57,13 @@ const Login = () => {
     navigate("/dashboard")
   }
 
-  const MenuOption = ({ item , handleClick}) => {
-    return (
-      <li onClick={handleClick} className="w-[300px] p-2 flex items-center space-x-2 md:space-x-4 cursor-pointer my-1">
-        <img src={item.flag} alt={item.label} className="w-4 h-4 md:w-6 md:h-6 rounded-full" />
-        <div className="flex items-center gap-2 text-xs md:text-lg">
-          <p>{item.value}</p>
-          <p>{item.label}</p>
-        </div>
-      </li>
-    )
-  }
-
   return (
     <div className='w-full h-full flex flex-col items-center justify-center p-2'>
       <Notification failure={error} color={'red'} />
-      <h2 className='mb-8 text-4xl font-bold text-center text-main-dark'>Sign In</h2>
+      <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Welcome <span className='text-main'>Back</span>!</h2>
+      <p className='text-sm md:text-xl text-center text-gray-400 mb-8 w-[450px]'>
+        Please fill out the form below to start saving and making deposits to your favorite brands.
+      </p>
       <div className="w-full flex flex-col items-center justify-center">
         <div className='flex items-center justify-center mb-4'>
           {[{ id: 'CLIENT', label: 'Client' }, { id: 'COORPORATE', label: 'Coorporate' }].map((option) => (
@@ -79,10 +71,11 @@ const Login = () => {
               <p
                 className={`cursor-pointer text-2xl font-bold  ease-in duration-200 border-b-4 px-4 py-2
                 ${selectedUserType === option.id ? 'text-main border-main' : 'text-gray-400 border-gray-300'}`}
-                onClick={() => setSelectedUserType(option.id)}>{option.label}</p>
-              </div>
-            ))}
-          </div>
+                onClick={() => setSelectedUserType(option.id)}>{option.label}
+              </p>
+            </div>
+          ))}
+        </div>
         <form className='w-full md:w-2/3 lg:w-1/3 p-4 border border-gray-300 rounded-lg' onSubmit={handleSubmit}>
           {selectedUserType === 'CLIENT'?
             <div className="relative">
@@ -121,10 +114,10 @@ const Login = () => {
             </div>
           </div>
           <p className='my-2 text-sm md:text-lg'>Don&#39;t you have an account?
-            <Link to='/register'><span className='text-main-dark font-bold ml-1'>Sign Up</span></Link>
+            <Link to='/register'><span className='text-main font-bold ml-1'>Sign Up</span></Link>
           </p>
-          <Link to='/forgetPassword'><p className='text-main-dark font-bold my-2 text-sm md:text-lg'>Forgot Password?</p></Link>
-          <button type='submit' className='flex items-center justify-start px-4 py-2 text-md text-white bg-main-dark rounded-lg font-semibold shadow-sm' disabled={isFetching}>
+          <Link to='/forgetPassword'><p className='text-main font-bold my-2 text-sm md:text-lg'>Forgot Password?</p></Link>
+          <button type='submit' className='flex items-center justify-start px-4 py-2 text-md text-white bg-main rounded-lg font-semibold shadow-sm' disabled={isFetching}>
             {isFetching && <div className="loading-spinner w-full mr-2"><Loading color={'white'} /></div>}
             {isFetching? 'Logging...' : 'Login In'}
           </button>

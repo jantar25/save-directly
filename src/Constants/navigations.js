@@ -71,4 +71,32 @@ export const countryCodeOptions = [
     label: 'DRcongo',
     flag: 'https://www.worldometers.info/img/flags/congo-flag.gif'
   },
+]
+
+export const countryOptions = [
+  {
+    value: 'RWANDA',
+    label: 'Rwanda',
+    flag: 'https://www.worldometers.info/img/flags/rw-flag.gif'
+  },
+  {
+    value: 'UGANDA',
+    label: 'Uganda',
+    flag: 'https://www.worldometers.info/img/flags/ug-flag.gif'
+  },
+  {
+    value: 'TANZANIA',
+    label: 'Tanzania',
+    flag: 'https://www.worldometers.info/img/flags/tz-flag.gif'
+  },
+  {
+    value: 'KENYA',
+    label: 'Kenya',
+    flag: 'https://www.worldometers.info/img/flags/ke-flag.gif'
+  },
+  {
+    value: 'DRCONGO',
+    label: 'DRcongo',
+    flag: 'https://www.worldometers.info/img/flags/congo-flag.gif'
+  },
 ];
