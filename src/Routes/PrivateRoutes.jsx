@@ -1,13 +1,14 @@
+/* eslint-disable react/prop-types */
 import { Navigate } from 'react-router-dom'
 
 import AuthService from '../Services/AuthService'
 
-const PrivateRoutes = () => {
+const PrivateRoutes = ({ children }) => {
     const token = AuthService.getToken()
     if (!token) {
         return <Navigate to="/login" />
       }
-    return <Navigate to="/dashboard" />
+    return children
 }
 
 export default PrivateRoutes

@@ -1,5 +1,5 @@
 import { useState }  from 'react'
-import { NavLink, Link } from 'react-router-dom'
+import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 
 import { navigations, accountNavigations } from '../Constants/navigations'
@@ -13,6 +13,7 @@ import { userLogout } from '../Redux/ApiCalls'
 
 const Navbar = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { currentUser } = useSelector(state => state.currentUser)
   const [toggleMenu,setToggleMenu] = useState(false)
   const [toggleProfile,setToggleProfile] = useState(false)
@@ -26,6 +27,7 @@ const Navbar = () => {
   const logOut = () => {
     userLogout(dispatch)
     setToggleProfile(false)
+    navigate("/login")
   }
 
 
@@ -58,7 +60,7 @@ const Navbar = () => {
         }
       </div>
       {toggleProfile &&
-        <div data-testid='profile-dropdown' className='absolute top-[70px] right-4 md:right-20 shadow-xl bg-gray-100 min-w-[270px] p-2 rounded-xl' ref={ dropDownProfilRef }>
+        <div data-testid='profile-dropdown' className='absolute top-[8vh] right-4 lg:right-24 shadow-xl bg-gray-100 min-w-[270px] p-2 rounded-xl' ref={ dropDownProfilRef }>
           <div className="bg-white rounded-xl flex flex-col items-center justify-start py-4">
             <div className='flex flex-col items-center justify-center'>
               {accountNavigations.map((nav) => (
@@ -92,7 +94,7 @@ const Navbar = () => {
           </div>
         </div>}
       {toggleMenu &&
-        <div data-testid='mobile-menu' className='absolute top-16 left-0 right-0 lg:hidden flex flex-col items-center justify-between
+        <div data-testid='mobile-menu' className='absolute top-[10vh] left-0 right-0 lg:hidden flex flex-col items-center justify-between
          bg-white p-4 border' ref={ dropDownMenuRef }>
           {navigations.map((nav) => (
             <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive?  'bg-headers my-1 w-full text-center py-2 rounded-md text-white'

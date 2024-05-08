@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link , useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 
 import { countryCodeOptions } from '../Constants/navigations'
@@ -13,6 +13,7 @@ import eyeCrossed from '../Assets/Icons/eye-crossed.svg'
 
 const Login = () => {
   const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { isFetching,error } = useSelector(state => state.currentUser)
   const [toggleCountryCode, setToggleCountryCode] = useState(false)
   const [selectedUserType, setSelectedUserType] = useState('CLIENT')
@@ -42,15 +43,17 @@ const Login = () => {
       setPasswordType('password')
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    userLogin(dispatch,{ ...inputs })
+    const loginSuccess = await userLogin(dispatch,{ ...inputs })
+    if (!loginSuccess) return
     setInputs({
       countryCode:'+250',
       telephone:'',
       email:'',
       password:'',
     })
+    navigate("/dashboard")
   }
 
   const MenuOption = ({ item , handleClick}) => {

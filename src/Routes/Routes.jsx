@@ -1,21 +1,20 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 
-import App from '../App'
-import Login from '../Pages/Login'
-import Register from '../Pages/Registration'
-import PrivateRoutes from './PrivateRoutes'
+import Dashboard from '../Pages/Dashboard'
+import Profile from '../Pages/Profile'
+// import RoleBasedRoutes from '@/components/Dashboard/RoleBasedRoutes'
 
-export const router = createBrowserRouter([
-  {
-    path: '/',
-    element: <App />,
-    children: [
-      { path: '', element: <PrivateRoutes /> },
-      { path: 'login', element: <Login /> },
-      { path: 'register', element: <Register /> },
-      { path: 'about', element: <div>About</div> },
-      { path: 'contact', element: <div>Contact</div> },
-      { path: 'services', element: <div>Services</div> },
-    ],
-  },
-])
+
+const MyRoutes = () => {
+  return (
+    <Routes>
+      <Route path='/dashboard' element={<Dashboard />} />
+      <Route path='/profile' element={<Profile />} />
+      {/* <Route path='/announcements' element={<Announcement />} />
+      <Route path='/verification-requests' element={<RoleBasedRoutes><Verifications /></RoleBasedRoutes>} />
+      <Route path='/speed-test' element={<RoleBasedRoutes><SpeedTest /></RoleBasedRoutes>} /> */}
+    </Routes>
+    )
+}
+
+export default MyRoutes

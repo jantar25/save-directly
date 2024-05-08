@@ -22,6 +22,7 @@ export const userLogin = async (dispatch,user) => {
     setTimeout(() => {
       dispatch(userLoginFailure(null))
     }, 5000)
+    return false
   } else{
     try {
       // const res = await apiRequest.post('/users/login',user, { timeout: 30000 })
@@ -30,6 +31,7 @@ export const userLogin = async (dispatch,user) => {
       AuthService.setToken(
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
       )
+      return true
     } catch (error) {
       if (error.response) {
         dispatch(userLoginFailure(error.response?.data.message))
@@ -39,6 +41,7 @@ export const userLogin = async (dispatch,user) => {
       setTimeout(() => {
         dispatch(userLoginFailure(null))
       }, 5000)
+      return false
     }
   }
 }
