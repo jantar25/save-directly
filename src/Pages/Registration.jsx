@@ -60,7 +60,7 @@ const Registration = () => {
   }
 
   return (
-    <div className='w-full h-full flex flex-col items-center justify-center p-2 my-16'>
+    <div className='w-full h-full flex flex-col items-center justify-center p-2'>
       <Notification failure={error} color={'red'} />
       <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Welcome to Save<span className='text-main'>Directly</span>!</h2>
       <p className='text-sm md:text-lg text-center text-gray-400 mb-4 w-[450px]'>

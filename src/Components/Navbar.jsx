@@ -33,14 +33,14 @@ const Navbar = () => {
 
   return (
     <div className='h-[10vh] sticky top-0 z-50 bg-main-dark flex items-center justify-between px-4 lg:px-24'>
-      <div className="flex-1">
+      <div className='flex items-center gap-16'>
         <img src={ menuIcon } alt='menu-icon' className='lg:hidden' onClick={() => setToggleMenu(!toggleMenu)}/>
         <NavLink to='/'>
           <h1 className="text-xl">Save<span className='text-main'>Directly</span></h1>
         </NavLink>
       </div>
 
-      <div className='flex-1 flex items-center justify-between'>
+      <div className='flex items-center justify-between'>
         <div className='hidden lg:flex items-center justify-between'>
           {navigations.map((nav) => (
             <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? navLinkActive : ''}>
@@ -52,7 +52,7 @@ const Navbar = () => {
         {!currentUser?
           <div className="flex items-center gap-1">
             <Link to='/login'>
-              <button className='text-md md:text-xl font-semibold px-4 py-1 text-main hover:text-orange-500'>LOGIN</button>
+              <button className='hidden md:flex text-md md:text-xl font-semibold px-4 py-1 text-main hover:text-orange-500'>LOGIN</button>
             </Link>
             <Link to='/register' className="bg-main ml-4 rounded-lg hover:bg-orange-500">
               <button className='text-md md:text-xl font-semibold px-4 py-2 text-white'>REGISTER</button>

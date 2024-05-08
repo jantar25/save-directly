@@ -13,7 +13,7 @@ const App = () => {
     <div className="font-Manrope">
       <Router>
         <Navbar />
-        <div className="min-h-[80vh]">
+        <div className="h-[80vh]">
           <Routes>
             <Route path="/*" element={<PrivateRoutes><MyRoutes /></PrivateRoutes>} />
             <Route path="/login" element={<Login/>} />
