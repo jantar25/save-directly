@@ -73,7 +73,7 @@ const Registration = () => {
                 className='p-2 border rounded-lg' onChange={handleChange} />
             </div>
           }
-          <div className='flex flex-col w-full my-2'>
+          {/* <div className='flex flex-col w-full my-2'>
             <label htmlFor="email" className='mb-1 text-lg font-bold'>PIN Code*</label>
             <div className="flex items-center border rounded-lg">
               <input type={passwordType} name='password' value={inputs.password} placeholder='Password'
@@ -82,7 +82,7 @@ const Registration = () => {
                 {passwordType !== 'text' ? <img src={eye} alt='eye-Icon' /> : <img src={eyeCrossed} alt='eyeCrossed-Icon' />}
               </div>
             </div>
-          </div>
+          </div> */}
           <p className='my-2'>Do you have an account?
             <Link to='/login'><span className='text-main font-bold ml-1'>Sign In</span></Link>
           </p>

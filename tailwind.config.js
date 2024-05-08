@@ -17,8 +17,10 @@ export default {
       '2xl': '1536px',
     },  
     extend: {
-      colors: theme => ({
-        'main': '#FFA500',
+      // eslint-disable-next-line no-unused-vars
+      colors: _ => ({
+        'main': '#FF9900',
+        'main-dark': '#37517e',
         'main-hover': '#3C456B',
         'red-extended':'#EF5455',
         'yellow-extended':'#FAD644',

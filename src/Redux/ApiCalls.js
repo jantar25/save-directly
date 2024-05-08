@@ -1,5 +1,5 @@
 import axios from 'axios'
-import AuthService from '../Components/AuthService'
+import AuthService from '../Services/AuthService'
 import { userLoginStart,userLoginSuccess,userLoginFailure,userLogoutSuccess,updateUserProfileStart,
   updateUserProfileSuccess,updateUserProfileFailure } from './currentUserRedux'
 
@@ -17,7 +17,7 @@ apiRequest.interceptors.request.use((config) => {
 // LOGIN USER
 export const userLogin = async (dispatch,user) => {
   dispatch(userLoginStart())
-  if (user.email === '' & user.telephone === '' || user.password === '') {
+  if (user.email === '' & user.telephone === '' || user.password === '' || user.countryCode === '') {
     dispatch(userLoginFailure('All fields are required'))
     setTimeout(() => {
       dispatch(userLoginFailure(null))
@@ -26,8 +26,10 @@ export const userLogin = async (dispatch,user) => {
     try {
       // const res = await apiRequest.post('/users/login',user, { timeout: 30000 })
       // dispatch(userLoginSuccess(res.data.data))
-      console.log('User Logged In', user)
-      AuthService.setToken(res.data.token)
+      dispatch(userLoginSuccess(user))
+      AuthService.setToken(
+        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+      )
     } catch (error) {
       if (error.response) {
         dispatch(userLoginFailure(error.response?.data.message))

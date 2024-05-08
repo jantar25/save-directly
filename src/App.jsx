@@ -7,9 +7,9 @@ const App = () => {
 
   return (
     <>
-      <div className='px-4 md:px-8 lg:px-32 bg-white text-alternative'>
+      <div className='bg-white text-alternative'>
         <Navbar />
-        <div className='min-h-[50vh]'>
+        <div className='h-[80vh]'>
           <Outlet />
         </div>
         <Footer />
