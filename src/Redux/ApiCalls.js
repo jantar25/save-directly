@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { Base64 } from 'js-base64'
 import AuthService from '../Services/AuthService'
 import { userLoginStart,userLoginSuccess,userLoginFailure,userLogoutSuccess,updateUserProfileStart,
   updateUserProfileSuccess,updateUserProfileFailure } from './currentUserRedux'
@@ -15,9 +16,9 @@ apiRequest.interceptors.request.use((config) => {
 })
 
 // LOGIN USER
-export const userLogin = async (dispatch,user) => {
+export const individualLogin = async (dispatch, user) => {
   dispatch(userLoginStart())
-  if (user.email === '' & user.telephone === '' || user.password === '' || user.countryCode === '') {
+  if (user.telephone === '' || user.password === '' || user.countryCode === '') {
     dispatch(userLoginFailure('All fields are required'))
     setTimeout(() => {
       dispatch(userLoginFailure(null))
@@ -25,8 +26,41 @@ export const userLogin = async (dispatch,user) => {
     return false
   } else{
     try {
-      // const res = await apiRequest.post('/users/login',user, { timeout: 30000 })
-      // dispatch(userLoginSuccess(res.data.data))
+      const credentials = Base64.encode(`${user.countryCode.replace('+', '')}${user.telephone}:${user.password}`)
+      const res = await apiRequest.get('/authenticate', {
+        headers: {
+          'Authorization': `Basic ${credentials}`
+        }
+      } , { timeout: 30000 })
+      const { accessToken, ...loggedInUser } = res.data
+      dispatch(userLoginSuccess(loggedInUser))
+      AuthService.setToken(accessToken)
+      return true
+    } catch (error) {
+      if (error.response) {
+        dispatch(userLoginFailure(error.response?.data.message))
+      } else {
+        dispatch(userLoginFailure(error.message))
+      }
+      setTimeout(() => {
+        dispatch(userLoginFailure(null))
+      }, 5000)
+      return false
+    }
+  }
+}
+
+// LOGIN USER
+export const corporateLogin = async (dispatch,user) => {
+  dispatch(userLoginStart())
+  if (user.email === '' || user.password === '') {
+    dispatch(userLoginFailure('All fields are required'))
+    setTimeout(() => {
+      dispatch(userLoginFailure(null))
+    }, 5000)
+    return false
+  } else{
+    try {
       dispatch(userLoginSuccess(user))
       AuthService.setToken(
         "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
