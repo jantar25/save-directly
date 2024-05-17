@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 import useClickOutside from '../../Hooks/useClickOutside'
-import { countryCodeOptions } from '../../Constants/navigations' //countryOptions
+import Countries from '../../Constants/Countries.json'
 import { MenuOption } from '../../Utils/MenuOptions'
 import Notification from '../../Components/Notification'
 import Loading from '../../Components/Loading'
@@ -13,7 +13,6 @@ const Registration = () => {
   const [error, setError] = useState(null)
   const [toggleCountryCode, setToggleCountryCode] = useState(false)
   // const [toggleCountry, setToggleCountry] = useState(false)
-  const [selectedUserType, setSelectedUserType] = useState('CLIENT')
   const [inputs,setInputs] = useState({
     fullName:'',
     countryCode:'+250',
@@ -34,7 +33,7 @@ const Registration = () => {
   }
 
   const onClickHandler = (item) => {
-    setInputs({ ...inputs,countryCode:item.value })
+    setInputs({ ...inputs,countryCode:item.code })
     closeCountryCode()
   }
 
@@ -55,8 +54,6 @@ const Registration = () => {
       setInputs({
         countryCode:'+250',
         telephone:'',
-        email:'',
-        password:'',
       })
       console.log(response)
       setIsFetching(false)
@@ -74,23 +71,11 @@ const Registration = () => {
   return (
     <div className='w-full h-full flex flex-col items-center justify-center p-2'>
       <Notification failure={error} color={'red'} />
-      <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Welcome to Save<span className='text-main'>Directly</span>!</h2>
+      <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Individual</span> Account</h2>
       <p className='text-sm md:text-lg text-center text-gray-400 mb-4 w-[450px]'>
         Please fill out the form below to start saving and making deposits to your favorite brands.
       </p>
       <div className="w-full flex flex-col items-center justify-center">
-        <div className='flex items-center justify-center mb-4'>
-          {[{ id: 'CLIENT', label: 'Client' }, { id: 'COORPORATE', label: 'Coorporate' }, { id: 'BUSINESS', label: 'Business' }]
-          .map((option) => (
-            <div key={option.id} className="flex items-center">
-              <p
-                className={`cursor-pointer text-xl font-bold  ease-in duration-200 border-b-4 px-4 py-2
-                ${selectedUserType === option.id ? 'text-main border-main' : 'text-gray-400 border-gray-300'}`}
-                onClick={() => setSelectedUserType(option.id)}>{option.label}
-              </p>
-            </div>
-          ))}
-        </div>
         <form className='w-full md:w-2/3 lg:w-1/3 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
           {/* <div className=""> */}
             {/* <div className='flex flex-col w-full my-2'>
@@ -103,16 +88,16 @@ const Registration = () => {
                 <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Telephone*</label>
                 <div className="flex items-center border rounded-lg">
                   <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-2 cursor-pointer'>
-                    <p className=''>{countryCodeOptions.find(option => option.value === inputs.countryCode)?.value}</p>
+                    <p className=''>{Countries.find(option => option.code === inputs.countryCode)?.dial_code}</p>
                   </div>
                   <input type='text' name='telephone' value={inputs.telephone} placeholder='0 7XX XXX XXX'
                     className='p-2 border rounded-lg w-full' onChange={handleChange} />
                 </div>
               </div>
               {toggleCountryCode && <div className="absolute top-18 left-0 z-50 bg-white border border-gray-300 rounded-lg shadow-lg">
-                  <ul ref={dropDownCountyCodeRef}>
-                    {countryCodeOptions.map((option, index) => (
-                      <MenuOption key={index} item={option} handleClick={() => onClickHandler(option)} />
+                  <ul className='h-[400px] overflow-y-auto' ref={dropDownCountyCodeRef}>
+                    {Countries.map((option, index) => (
+                      <MenuOption key={index} item={option} number handleClick={() => onClickHandler(option)} />
                     ))}
                   </ul>
                 </div>}

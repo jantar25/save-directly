@@ -80,7 +80,7 @@ const LoginIndividual = () => {
   return (
     <div className='w-full h-full flex flex-col items-center justify-center p-2'>
       <Notification failure={error} color={'red'} />
-      <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Welcome <span className='text-main'>Back</span>!</h2>
+      <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Individual<span className='text-main ml-2'>Account</span></h2>
       <p className='text-sm md:text-xl text-center text-gray-400 mb-8 w-[450px]'>
         Fill the form below to continue where you left with your saving.
       </p>
