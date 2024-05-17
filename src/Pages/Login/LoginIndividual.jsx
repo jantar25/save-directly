@@ -3,16 +3,16 @@ import { useState } from 'react'
 import { Link , useNavigate } from 'react-router-dom'
 import { useDispatch,useSelector } from 'react-redux'
 
-import { MenuOption } from '../Utils/MenuOptions'
-import { countryCodeOptions } from '../Constants/navigations'
-import useClickOutside from '../Hooks/useClickOutside'
-import Notification from '../Components/Notification'
-import Loading from '../Components/Loading'
-import { userLogin } from '../Redux/ApiCalls'
-import eye from '../Assets/Icons/eye.svg'
-import eyeCrossed from '../Assets/Icons/eye-crossed.svg'
+import { MenuOption } from '../../Utils/MenuOptions'
+import { countryCodeOptions } from '../../Constants/navigations'
+import useClickOutside from '../../Hooks/useClickOutside'
+import Notification from '../../Components/Notification'
+import Loading from '../../Components/Loading'
+import { userLogin } from '../../Redux/ApiCalls'
+import eye from '../../Assets/Icons/eye.svg'
+import eyeCrossed from '../../Assets/Icons/eye-crossed.svg'
 
-const Login = () => {
+const LoginIndividual = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { isFetching,error } = useSelector(state => state.currentUser)
@@ -62,7 +62,7 @@ const Login = () => {
       <Notification failure={error} color={'red'} />
       <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Welcome <span className='text-main'>Back</span>!</h2>
       <p className='text-sm md:text-xl text-center text-gray-400 mb-8 w-[450px]'>
-        Please fill out the form below to start saving and making deposits to your favorite brands.
+      Choose whether you are Individual or an Corporate.
       </p>
       <div className="w-full flex flex-col items-center justify-center">
         <div className='flex items-center justify-center mb-4'>
@@ -83,7 +83,8 @@ const Login = () => {
                 <label htmlFor="email" className='mb-1 text-sm md:text-lg font-bold'>Telephone*</label>
                 <div className="flex items-center border rounded-lg">
                   <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-2 cursor-pointer'>
-                    <img src={countryCodeOptions.find(option => option.value === inputs.countryCode)?.flag} alt='country-flag' className='w-6 h-4' />
+                    <p className=''>{countryCodeOptions.find(option => option.value === inputs.countryCode)?.value}</p>
+                    {/* <img src={countryCodeOptions.find(option => option.value === inputs.countryCode)?.flag} alt='country-flag' className='w-6 h-4' /> */}
                   </div>
                   <input type='text' name='telephone' value={inputs.telephone} placeholder='0 7XX XXX XXX'
                     className='p-2 border rounded-lg w-full' onChange={handleChange} />
@@ -127,4 +128,4 @@ const Login = () => {
   )
 }
 
-export default Login
+export default LoginIndividual

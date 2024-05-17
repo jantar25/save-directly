@@ -1,19 +1,18 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useDispatch,useSelector } from 'react-redux'
 
-import useClickOutside from '../Hooks/useClickOutside'
-import { countryCodeOptions, countryOptions } from '../Constants/navigations'
-import { MenuOption } from '../Utils/MenuOptions'
-import Notification from '../Components/Notification'
-import Loading from '../Components/Loading'
-import { userLogin } from '../Redux/ApiCalls'
+import useClickOutside from '../../Hooks/useClickOutside'
+import { countryCodeOptions } from '../../Constants/navigations' //countryOptions
+import { MenuOption } from '../../Utils/MenuOptions'
+import Notification from '../../Components/Notification'
+import Loading from '../../Components/Loading'
+import { apiRequest } from '../../Redux/ApiCalls'
 
 const Registration = () => {
-  const dispatch = useDispatch()
-  const { isFetching,error } = useSelector(state => state.currentUser)
+  const [isFetching, setIsFetching] = useState(false)
+  const [error, setError] = useState(null)
   const [toggleCountryCode, setToggleCountryCode] = useState(false)
-  const [toggleCountry, setToggleCountry] = useState(false)
+  // const [toggleCountry, setToggleCountry] = useState(false)
   const [selectedUserType, setSelectedUserType] = useState('CLIENT')
   const [inputs,setInputs] = useState({
     fullName:'',
@@ -26,9 +25,9 @@ const Registration = () => {
   })
 
   const closeCountryCode = () => setToggleCountryCode(false)
-  const closeCountry = () => setToggleCountry(false)
+  // const closeCountry = () => setToggleCountry(false)
   const dropDownCountyCodeRef = useClickOutside(closeCountryCode)
-  const dropDownCountryRef = useClickOutside(closeCountry)
+  // const dropDownCountryRef = useClickOutside(closeCountry)
 
   const handleChange = (e) => {
     setInputs({ ...inputs,[e.target.name]:e.target.value })
@@ -39,24 +38,37 @@ const Registration = () => {
     closeCountryCode()
   }
 
-  const handleTermsAndConditions = () => {
-    setInputs({ ...inputs,isTermsAgreed:!inputs.isTermsAgreed })
-  }
+  // const handleTermsAndConditions = () => {
+  //   setInputs({ ...inputs,isTermsAgreed:!inputs.isTermsAgreed })
+  // }
 
-  const onClickHandlerCountry = (item) => {
-    setInputs({ ...inputs,nationality:item.value })
-    closeCountryCode()
-  }
+  // const onClickHandlerCountry = (item) => {
+  //   setInputs({ ...inputs,nationality:item.value })
+  //   closeCountryCode()
+  // }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    setIsFetching(true)
     e.preventDefault()
-    userLogin(dispatch,{ ...inputs })
-    setInputs({
-      countryCode:'+250',
-      telephone:'',
-      email:'',
-      password:'',
-    })
+    try {
+      const response = await apiRequest.post('/lookup/msisdn',{ countryCode: inputs.countryCode,msisdn:inputs.telephone })
+      setInputs({
+        countryCode:'+250',
+        telephone:'',
+        email:'',
+        password:'',
+      })
+      console.log(response)
+      setIsFetching(false)
+    } catch (error) {
+      console.log(error)
+      setError(error.response?.data.message)
+      setTimeout(() => {
+        setError(null)
+      }, 5000)
+
+      setIsFetching(false)
+    }
   }
 
   return (
@@ -76,23 +88,22 @@ const Registration = () => {
                 ${selectedUserType === option.id ? 'text-main border-main' : 'text-gray-400 border-gray-300'}`}
                 onClick={() => setSelectedUserType(option.id)}>{option.label}
               </p>
-              {/* {index !== 2 && <span className="px-2 text-gray-400">|</span>} */}
             </div>
           ))}
         </div>
         <form className='w-full md:w-2/3 lg:w-1/3 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
-          <div className="">
-            <div className='flex flex-col w-full my-2'>
+          {/* <div className=""> */}
+            {/* <div className='flex flex-col w-full my-2'>
               <label htmlFor="email" className='mb-1 text-lg font-bold'>{selectedUserType === 'CLIENT'? 'Full' : 'Business'} Name*</label>
               <input type='text' name='name' value={inputs.telephone} placeholder='Name'
                 className='p-2 border rounded-lg' onChange={handleChange} />
-            </div>
+            </div> */}
             <div className="relative">
               <div className='flex flex-col w-full my-2'>
                 <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Telephone*</label>
                 <div className="flex items-center border rounded-lg">
                   <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-2 cursor-pointer'>
-                    <img src={countryCodeOptions.find(option => option.value === inputs.countryCode)?.flag} alt='country-flag' className='w-6 h-4' />
+                    <p className=''>{countryCodeOptions.find(option => option.value === inputs.countryCode)?.value}</p>
                   </div>
                   <input type='text' name='telephone' value={inputs.telephone} placeholder='0 7XX XXX XXX'
                     className='p-2 border rounded-lg w-full' onChange={handleChange} />
@@ -106,12 +117,12 @@ const Registration = () => {
                   </ul>
                 </div>}
             </div>
-            <div className='flex flex-col w-full my-2'>
+            {/* <div className='flex flex-col w-full my-2'>
               <label htmlFor="email" className='mb-1 text-lg font-bold'>Email*</label>
               <input type='email' name='email' value={inputs.email} placeholder='Email'
                 className='p-2 border rounded-lg' onChange={handleChange} />
-            </div>
-            <div className="relative">
+            </div> */}
+            {/* <div className="relative">
               <div className='flex flex-col w-full my-2'>
                 <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Nationality*</label>
                 <div className="flex items-center border rounded-lg" onClick={() => setToggleCountry(!toggleCountry)}>
@@ -128,21 +139,21 @@ const Registration = () => {
                     ))}
                   </ul>
                 </div>}
-            </div>
-            <div className='flex flex-col w-full my-2'>
+            </div> */}
+            {/* <div className='flex flex-col w-full my-2'>
               <label htmlFor="email" className='mb-1 text-lg font-bold'>{selectedUserType === 'CLIENT'? 'ID/Passport' : 'Tin'} Number*</label>
               <input type='text' name='indentitication' value={inputs.email} placeholder='Number'
                 className='p-2 border rounded-lg' onChange={handleChange} />
             </div>
-          </div>
-          <div className='my-2'>
+          </div> */}
+          {/* <div className='my-2'>
             <input type="checkbox" className='mr-1 accent-main cursor-pointer' checked={inputs.isTermsAgreed} required onClick={handleTermsAndConditions} />
             <label htmlFor="agreeTerms">
               I agree to the<Link to='/termsAndConditions'>
                 <span className='text-main font-bold ml-1'>Terms and Conditions</span>.
               </Link>
             </label>
-          </div>
+          </div> */}
           <button type='submit' className='flex items-center justify-start px-4 py-2 text-md text-white bg-main rounded-lg font-semibold shadow-sm' disabled={isFetching}>
             {isFetching && <div className="loading-spinner w-full mr-2"><Loading color={'white'} /></div>}
             {isFetching? 'Registering...' : 'Sign Up'}
