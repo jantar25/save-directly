@@ -15,7 +15,7 @@ const Login = () => {
         </p>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4">
-        {loginUsers.map((user) => <UserTypeSelector user={user} />)}
+        {loginUsers.map((user, index) => <UserTypeSelector key={index} user={user} />)}
       </div>
       <p className='mt-16 text-sm md:text-lg'>Don&#39;t you have an account?
         <Link to='/register'><span className='text-main font-bold ml-1'>Sign Up</span></Link>

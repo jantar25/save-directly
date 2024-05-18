@@ -14,7 +14,7 @@ const Registration = () => {
         </p>
       </div>
       <div className="flex flex-wrap items-center justify-center gap-4">
-        {registerUsers.map((user) => <UserTypeSelector user={user} />)}
+        {registerUsers.map((user, index) => <UserTypeSelector key={index} user={user} />)}
       </div>
       <p className='mt-16'>Do you have an account?
         <Link to='/login'><span className='text-main font-bold ml-1'>Sign In</span></Link>
