@@ -41,8 +41,9 @@ const NumberLookup = ({ setError, setToggleOTP}) => {
         countryCode:'RW',
         telephone:'',
       })
+
       AuthService.setOTP(response.data.otp)
-      AuthService.setToken(response.data.token)
+      AuthService.setTemporaryToken(response.data.registrationToken)
       setToggleOTP(true)
       setIsFetching(false)
     } catch (error) {
@@ -85,7 +86,7 @@ const NumberLookup = ({ setError, setToggleOTP}) => {
           </div>
           <button type='submit' className='flex items-center justify-start px-4 py-2 text-md text-white bg-main rounded-lg font-semibold shadow-sm' disabled={isFetching}>
             {isFetching && <div className="loading-spinner w-full mr-2"><Loading color={'white'} /></div>}
-            {isFetching? 'Registering...' : 'Sign Up'}
+            {isFetching? 'Verifying...' : 'Verify'}
           </button>
           <p className='my-2'>Do you have an account?
             <Link to='/login/individual'><span className='text-main font-bold ml-1'>Sign In</span></Link>

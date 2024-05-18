@@ -38,6 +38,8 @@ const OTPInput = ({ setError, setToggleOTP, setTogglePersonalInfo }) => {
   }
 
   const goBack = () => {
+    AuthService.removeOTP()
+    AuthService.removeTemporaryToken()
     setToggleOTP(false)
   }
 
@@ -49,7 +51,7 @@ const OTPInput = ({ setError, setToggleOTP, setTogglePersonalInfo }) => {
           <input
             key={index}
             type="text"
-            className="w-24 h-24 text-4xl outline-none text-center border-2 border-main rounded-lg m-2"
+            className="w-12 md:w-24 h-12 md:h-24 text-2xl text-4xl outline-none text-center border-2 border-main rounded-lg m-2"
             maxLength="1"
             value={data}
             onChange={(e) => handleChange(e.target, index)}
@@ -57,8 +59,8 @@ const OTPInput = ({ setError, setToggleOTP, setTogglePersonalInfo }) => {
           />
         ))}
       </div>
-        <p className='my-2'>Didn&apos;t receive the code?
-          <span className='text-main font-bold ml-1' onClick={goBack}>Go Back to resend</span>
+        <p className='mt-8 text-md'>Didn&apos;t receive the code?
+          <span className='text-main font-bold ml-1 cursor-pointer' onClick={goBack}>Go Back to resend</span>
         </p>
     </div>
   )

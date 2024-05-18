@@ -7,15 +7,16 @@ import PersonalInformation from '../../Components/PersonalInformation'
 
 const RegistrationIndividual = () => {
   const [error, setError] = useState(null)
+  const [success, setSuccess] = useState(null)
   const [togglePersonalInfo, setTogglePersonalInfo] = useState(false)
   const [toggleOTP, setToggleOTP] = useState(false)
 
   return (
     <div className='w-full h-full'>
-      <Notification failure={error} color={'red'} />
+      <Notification success={success} failure={error} color={error ? 'red': 'green'} />
       {!toggleOTP && !togglePersonalInfo && <NumberLookup setError={setError} setToggleOTP={setToggleOTP} />}
-      {toggleOTP && !togglePersonalInfo && <OTPInput setError={setError} setTogglePersonalInfo={setTogglePersonalInfo} setToggleOTP={setToggleOTP} />}
-      {togglePersonalInfo && !toggleOTP && <PersonalInformation />}
+      {toggleOTP && !togglePersonalInfo &&<OTPInput setError={setError} setTogglePersonalInfo={setTogglePersonalInfo} setToggleOTP={setToggleOTP} />}
+      {togglePersonalInfo && !toggleOTP && <PersonalInformation setError={setError} setSuccess={setSuccess} />}
     </div>
   )
 }

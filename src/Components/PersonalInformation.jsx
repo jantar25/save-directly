@@ -1,24 +1,21 @@
+/* eslint-disable react/prop-types */
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import eye from '../Assets/Icons/eye.svg'
-import eyeCrossed from '../Assets/Icons/eye-crossed.svg'
+
+import AuthService from '../Services/AuthService'
+import { apiRequest } from '../Redux/ApiCalls'
+import PinInputModal from './PinInputModal'
 
 import Loading from './Loading'
 
-const PersonalInformation = () => {
+const PersonalInformation = ({ setError, setSuccess }) => {
   const [isFetching, setIsFetching] = useState(false)
-  const [passwordType, setPasswordType] = useState('password')
+  const [names, setNames] = useState('')
+  const [toggleInputPin, setToggleInputPin] = useState(false)
   const [inputs,setInputs] = useState({
     indentitication:'',
-    password:'',
     isTermsAgreed:false,
   })
-
-  const togglePassword = () => {
-    passwordType==='password'?
-      setPasswordType('text') :
-      setPasswordType('password')
-  }
 
   const handleChange = (e) => {
     setInputs({ ...inputs,[e.target.name]:e.target.value })
@@ -28,9 +25,30 @@ const PersonalInformation = () => {
   }
 
   const handleSubmit = async (e) => {
-    setIsFetching(true)
-    e.preventDefault
-    console.log(inputs)
+    e.preventDefault()
+    if(!inputs.isTermsAgreed) return
+    if(!inputs.indentitication) {
+      setError('Please fill in all the required fields')
+      setTimeout(() => {
+        setError(null)
+      }, 5000)
+    } else {
+      setIsFetching(true)
+      try {
+        const response = await apiRequest.get(`/lookup/${inputs.indentitication}`, {
+          headers: { 'Authorization': `Basic ${AuthService.getTemporaryToken()}`} })
+
+        setNames(`${response.data.firstname} ${response.data.lastname}`)
+        setToggleInputPin(true)
+        setIsFetching(false)
+      } catch (error) {
+        setError(error.response.data.message)
+        setTimeout(() => {
+          setError(null)
+        }, 5000)
+        setIsFetching(false)
+      }
+    }
   }
 
   return (
@@ -40,19 +58,9 @@ const PersonalInformation = () => {
         <form className='w-full md:w-2/3 lg:w-1/3 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
           <div className="">
             <div className='flex flex-col w-full my-2'>
-              <label htmlFor="email" className='mb-1 text-lg font-bold'>Tin Number*</label>
-              <input type='text' name='indentitication' value={inputs.email} placeholder='Number'
+              <label htmlFor="email" className='mb-1 text-lg font-bold'>ID/Passport Number*</label>
+              <input type='text' name='indentitication' value={inputs.indentitication} placeholder='Number'
                 className='p-2 border rounded-lg' onChange={handleChange} />
-            </div>
-          </div>
-          <div className='flex flex-col w-full my-2'>
-            <label htmlFor="email" className='mb-1 text-sm md:text-lg font-bold'>PIN Code*</label>
-            <div className="flex items-center border rounded-lg">
-              <input type={passwordType} name='password' value={inputs.password} placeholder='Password'
-                className='p-2 w-full rounded-lg' onChange={handleChange} />
-              <div onClick={togglePassword} className='p-2 cursor-pointer' data-testid='toggle-password-button'>
-                {passwordType !== 'text' ? <img src={eye} alt='eye-Icon' /> : <img src={eyeCrossed} alt='eyeCrossed-Icon' />}
-              </div>
             </div>
           </div>
           <div className='my-2'>
@@ -65,10 +73,20 @@ const PersonalInformation = () => {
           </div>
           <button type='submit' className='flex items-center justify-start px-4 py-2 text-md text-white bg-main rounded-lg font-semibold shadow-sm' disabled={isFetching}>
             {isFetching && <div className="loading-spinner w-full mr-2"><Loading color={'white'} /></div>}
-            {isFetching? 'Registering...' : 'Sign Up'}
+            {isFetching? 'Verififying...' : 'Verify Identity'}
           </button>
         </form>
       </div>
+      {toggleInputPin &&
+        <PinInputModal
+          names={names}
+          setToggleInputPin={setToggleInputPin}
+          isTermsAgreed={inputs.isTermsAgreed}
+          setError={setError}
+          setInputs={setInputs}
+          setSuccess={setSuccess}
+        />
+      }
     </div>
   )
 }
