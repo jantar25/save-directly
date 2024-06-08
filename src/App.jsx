@@ -1,6 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import PrivateRoutes from './Routes/PrivateRoutes'
 
+import Home from './Pages/Home'
 import Login from './Pages/Login/Login'
 import LoginIndividual from './Pages/Login/LoginIndividual'
 import LoginCorporate from './Pages/Login/LoginCorporate'
@@ -20,6 +21,7 @@ const App = () => {
         <Navbar />
         <div className="h-[80vh]">
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/*" element={<PrivateRoutes><MyRoutes /></PrivateRoutes>} />
             <Route path="/login" element={<Login/>} />
             <Route path="/login/individual" element={<LoginIndividual/>} />

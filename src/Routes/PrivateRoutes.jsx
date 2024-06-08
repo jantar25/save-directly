@@ -6,7 +6,7 @@ import AuthService from '../Services/AuthService'
 const PrivateRoutes = ({ children }) => {
     const token = AuthService.getToken()
     if (!token) {
-        return <Navigate to="/login" />
+        return <Navigate to="/" />
       }
     return children
 }
