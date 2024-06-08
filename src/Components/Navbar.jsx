@@ -27,7 +27,7 @@ const Navbar = () => {
   const logOut = () => {
     userLogout(dispatch)
     setToggleProfile(false)
-    navigate("/login")
+    navigate("/")
   }
 
 
