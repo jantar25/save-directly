@@ -146,7 +146,7 @@ const RegistrationCorporate = () => {
             {isFetching? 'Registering...' : 'Sign Up'}
           </button>
           <p className='my-2'>Do you have an account?
-            <Link to='/login'><span className='text-main font-bold ml-1'>Sign In</span></Link>
+            <Link to='/login/corporate'><span className='text-main font-bold ml-1'>Sign In</span></Link>
           </p>
         </form>
       </div>

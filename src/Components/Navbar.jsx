@@ -34,13 +34,13 @@ const Navbar = () => {
   return (
     <div className='h-[10vh] sticky top-0 z-50 bg-main-dark flex items-center justify-between px-4 lg:px-24'>
       <div className='flex items-center gap-16'>
-        <img src={ menuIcon } alt='menu-icon' className='lg:hidden' onClick={() => setToggleMenu(!toggleMenu)}/>
-        <NavLink to='/'>
-          <h1 className="text-xl">Save<span className='text-main'>Directly</span></h1>
+        <img src={ menuIcon } alt='menu-icon' className='lg:hidden cursor-pointer' onClick={() => setToggleMenu(!toggleMenu)}/>
+        <NavLink to='/' className="hidden sm:inline-block text-xl">
+          <h1>Save<span className='text-main'>Directly</span></h1>
         </NavLink>
       </div>
 
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between gap-4'>
         <div className='hidden lg:flex items-center justify-between'>
           {navigations.map((nav) => (
             <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? navLinkActive : ''}>
@@ -52,7 +52,7 @@ const Navbar = () => {
         {!currentUser?
           <div className="flex items-center gap-1">
             <Link to='/login/individual'>
-              <button className='hidden border border-2 border-main rounded-lg md:flex text-md md:text-xl font-bold px-4 py-1 text-main hover:text-orange-500'>Individual</button>
+              <button className='border border-2 border-main rounded-lg text-md md:text-xl font-bold px-4 py-1 text-main hover:text-orange-500'>Individual</button>
             </Link>
             <Link to='/login/corporate' className="bg-main ml-4 rounded-lg hover:bg-orange-500">
               <button className='text-md md:text-xl font-bold px-4 py-2 text-white'>Corporate</button>
@@ -102,7 +102,7 @@ const Navbar = () => {
         <div data-testid='mobile-menu' className='absolute top-[10vh] left-0 right-0 lg:hidden flex flex-col items-center justify-between
          bg-white p-4 border' ref={ dropDownMenuRef }>
           {navigations.map((nav) => (
-            <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive?  'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
+            <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive?  'bg-main my-1 w-full text-center py-2 rounded-md text-white'
             : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeMenu }>
               <span className='text-xl font-semibold'>{nav.name}</span>
             </NavLink>

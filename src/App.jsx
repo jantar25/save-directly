@@ -2,10 +2,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import PrivateRoutes from './Routes/PrivateRoutes'
 
 import Home from './Pages/Home'
-import Login from './Pages/Login/Login'
 import LoginIndividual from './Pages/Login/LoginIndividual'
 import LoginCorporate from './Pages/Login/LoginCorporate'
-import Register from './Pages/Registration/Registration'
 import RegisterIndividual from './Pages/Registration/RegistrationIndividual'
 import RegisterCorporate from './Pages/Registration/RegistrationCorporate'
 import RegisterBusiness from './Pages/Registration/RegistrationBusiness'
@@ -23,10 +21,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/*" element={<PrivateRoutes><MyRoutes /></PrivateRoutes>} />
-            <Route path="/login" element={<Login/>} />
             <Route path="/login/individual" element={<LoginIndividual/>} />
             <Route path="/login/corporate" element={<LoginCorporate/>} />
-            <Route path="/register" element={<Register/>} />
             <Route path="/register/individual" element={<RegisterIndividual/>} />
             <Route path="/register/corporate" element={<RegisterCorporate/>} />
             <Route path="/register/business" element={<RegisterBusiness/>} />
