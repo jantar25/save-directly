@@ -45,7 +45,7 @@ export const workingProcesses = [
         description:'Each time you deposit, brands add $ to your balance'
     },
     {
-        id:'3',
+        id:'4',
         icon: cartIcon,
         description:'Use your savings and rewards whenever it’s time to buy'
     }

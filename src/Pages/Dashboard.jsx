@@ -1,9 +1,41 @@
-import { compagnies } from '../Constants/dummydata'
+import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 
+import { apiRequest } from '../Redux/ApiCalls'
 import { processes, workingProcesses } from '../Constants/process'
-import boltIcon from '../Assets/Icons/bolt.svg'
+import danubeLogo from '../Assets/Images/danube.png'
+import radiantLogo from '../Assets/Images/radiant.jpeg'
 
 const Dashboard = () => {
+  const [balance, setBalance] = useState(0)
+  const [merchants, setMerchants] = useState([])
+  const {currentUser } = useSelector(state => state.currentUser)
+
+  console.log(merchants)
+  console.log(balance)
+
+  const getBalance = async () => {
+    try {
+      const response = await apiRequest.get('/inquiry/balance')
+      setBalance(response.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  const getMerchants = async () => {
+    try {
+      const response = await apiRequest.get('/product/list')
+      setMerchants(response.data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getBalance()
+    getMerchants()
+  }, [])
 
   return (
     <div>
@@ -27,7 +59,7 @@ const Dashboard = () => {
       </div>
       <div className="px-4 lg:px-24 pt-12">
         <div className="flex items-center flex-col md:flex-row md:justify-between my-4">
-          <h1 className="font-bold text-3xl mb-4">Welcom <span className="text-main">Gad</span>!</h1>
+          <h1 className="font-bold text-3xl mb-4">Welcom <span className="text-main">{currentUser.customerNames}</span>!</h1>
           <div className="flex items-center text-xl lg:text-3xl font-bold text-main-dark shadow-lg rounded-lg p-4 bg-gray-200">
             Total Bal: 
             <p>FRW 20 500 000</p>
@@ -48,38 +80,30 @@ const Dashboard = () => {
             </div>
           </div>
           <div className='flex items-center justify-center gap-8 flex-wrap mb-4'>
-            {compagnies.map(compagnie => 
-              <div key={compagnie.id} className="w-[350px] h-[400px] shadow-xl rounded-xl border border-main-dark cursor-pointer">
-                <img src={compagnie.logo} alt="compagnie's logo" className='w-full h-2/3 object-contain rounded-t-xl' />
-                <div className="h-1/3 w-full flex flex-col items-center justify-center px-2">
-                  <p className="text-xl text-main-dark font-bold text-center">{compagnie.name}</p>
-                  <div className="flex items-center gap-2">
+            {merchants.map(compagnie => 
+              <div key={compagnie.productId} className="w-[350px] h-[400px] shadow-xl rounded-xl border border-main-dark">
+                <div className="h-3/4 relative">
+                  <img
+                    src={compagnie.merchants[0]?.merchantName === "RADIANT"? radiantLogo : danubeLogo}
+                    alt="compagnie's logo"
+                    className='w-full h-full object-cover rounded-t-xl border-b-8 border-main-dark'
+                  />
+                  <button className="absolute px-6 py-2 text-xl bg-main-dark text-white font-bold rounded-full right-8 -bottom-4">
+                    Explore
+                  </button>
+                </div>
+                <div className="h-1/4 w-full flex flex-col items-center justify-center">
+                  <p className="text-xl text-main-dark font-bold text-center">{compagnie.merchants[0]?.merchantName}</p>
+                  {/* <div className="flex items-center gap-2">
                     <img src={boltIcon} alt="bolt icon" className="w-4 h-4" />
-                    <spa>Earn at least</spa>
+                    <span>Earn at least</span>
                     <div className="w-12 h-12 bg-main flex items-center justify-center font-bold rounded-xl">{`${compagnie.discount}%`}</div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             )}
           </div>
         </div>
-        {/* <div className="my-8">
-          <div className='mb-4'>
-            <h1 className='text-main-dark text-lg lg:text-2xl font-bold'>Our Products</h1>
-            <p className='text-gray-500 text-md lg:text-lg'>Check our compmpagnied products for saving placement.</p>
-          </div>
-          <div className='flex items-center justify-center gap-4 flex-wrap'>
-            {Products.map(product => 
-              <div key={product.id} className="w-[250px] h-[250px] shadow-xl rounded-xl border border-main-dark cursor-pointer">
-                <img src={product.product} alt="compagnie's logo" className='w-full h-2/3 object-cover rounded-t-xl' />
-                <div className="h-1/3 w-full flex items-center justify-center px-2">
-                  <p className="text-xl text-main-dark font-bold text-center">{product.productName}</p>
-                </div>
-              </div>
-            )}
-          </div>
-          <Link to='/products' className='bg-main px-4 py-2 rounded-lg text-white mt-2'>Explore more</Link>
-        </div> */}
       </div>
       <div className="bg-main py-8 flex flex-col items-center justify-center gap-8">
         <h3 className="text-3xl font-bold">How it works</h3>
