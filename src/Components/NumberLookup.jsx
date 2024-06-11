@@ -59,12 +59,12 @@ const NumberLookup = ({ setError, setToggleOTP}) => {
 
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-2">
-      <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Individual</span> Account</h2>
+      <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Personal</span> Account</h2>
       <p className='text-sm md:text-lg text-center text-gray-400 mb-4 w-[450px]'>
       Please fill out the form below to start saving and making deposits to your favorite brands.
       </p>
       <div className="w-full flex flex-col items-center justify-center">
-        <form className='w-full md:w-2/3 lg:w-1/3 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
+        <form className='w-full lg:w-2/3 xl:w-1/2 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
           <div className="relative">
             <div className='flex flex-col w-full my-2'>
               <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Telephone*</label>
@@ -89,7 +89,7 @@ const NumberLookup = ({ setError, setToggleOTP}) => {
             {isFetching? 'Verifying...' : 'Verify'}
           </button>
           <p className='my-2'>Do you have an account?
-            <Link to='/login/individual'><span className='text-main font-bold ml-1'>Sign In</span></Link>
+            <Link to='/login/personal'><span className='text-main font-bold ml-1'>Sign In</span></Link>
           </p>
         </form>
       </div>

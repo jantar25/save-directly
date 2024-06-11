@@ -8,7 +8,7 @@ import Notification from '../../Components/Notification'
 import Loading from '../../Components/Loading'
 import { apiRequest } from '../../Redux/ApiCalls'
 
-const RegistrationCorporate = () => {
+const RegistrationPartner = () => {
   const [isFetching, setIsFetching] = useState(false)
   const [error, setError] = useState(null)
   const [toggleCountryCode, setToggleCountryCode] = useState(false)
@@ -73,7 +73,7 @@ const RegistrationCorporate = () => {
   return (
     <div className='w-full h-full flex flex-col items-center justify-center p-2'>
       <Notification failure={error} color={'red'} />
-      <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Corporate</span> Account</h2>
+      <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Partner</span> Account</h2>
       <p className='text-sm md:text-lg text-center text-gray-400 mb-4 w-[450px]'>
         Please fill out the form below to start saving and making deposits to your favorite brands.
       </p>
@@ -154,4 +154,4 @@ const RegistrationCorporate = () => {
   )
 }
 
-export default RegistrationCorporate
+export default RegistrationPartner

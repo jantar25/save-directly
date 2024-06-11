@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import savingImg from '../Assets/Images/saving.png'
 
 const Home = () => {
-  const [account, setAccount] = useState('individual')
+  const [account, setAccount] = useState('personal')
 
   const handleAccount = (e) => {
     setAccount(e.target.id)
@@ -26,20 +26,11 @@ const Home = () => {
         <p className='text-xl text-gray-400 text-center md:text-start'>Choose your desired account.</p>
         <div className="flex flex-col gap-4 mt-8">
           <div className="flex items-start">
-            <input type="radio" name="account" id="individual" checked={account === 'individual'} className="mr-2 w-8 h-8 accent-main-dark" onChange={handleAccount}/>
-            <label htmlFor="individual" className="text-main text-xl font-semibold">
-              <h2 className='text-main text-2xl font-bold'>Individual</h2>
+            <input type="radio" name="account" id="personal" checked={account === 'personal'} className="mr-2 w-8 h-8 accent-main-dark" onChange={handleAccount}/>
+            <label htmlFor="personal" className="text-main text-xl font-semibold">
+              <h2 className='text-main text-2xl font-bold'>Personal</h2>
               <p className='text-sm text-gray-400 w-full xl:w-1/2'>Plan ahead by putting money aside for things like household items, a vacation, wedding  or a new computer and 
                 checkout from a wide range of merchants.
-              </p>
-            </label>
-          </div>
-          <div className="flex items-start">
-            <input type="radio" name="account" id="corporate" checked={account === 'corporate'} className="mr-2 w-8 h-8 accent-main-dark" onChange={handleAccount}/>
-            <label htmlFor="corporate" className="text-main text-xl font-semibold">
-              <h2 className='text-main text-2xl font-bold'>Corporate</h2>
-              <p className='text-sm text-gray-400 w-full xl:w-1/2'>Accept flexible payments both online and offline and increase sales by converting more customers.
-                Grow with the most trusted way to pay.
               </p>
             </label>
           </div>
@@ -47,6 +38,15 @@ const Home = () => {
             <input type="radio" name="account" id="business" checked={account === 'business'} className="mr-2 w-8 h-8 accent-main-dark" onChange={handleAccount}/>
             <label htmlFor="business" className="text-main text-xl font-semibold">
               <h2 className='text-main text-2xl font-bold'>Business</h2>
+              <p className='text-sm text-gray-400 w-full xl:w-1/2'>Accept flexible payments both online and offline and increase sales by converting more customers.
+                Grow with the most trusted way to pay.
+              </p>
+            </label>
+          </div>
+          <div className="flex items-start">
+            <input type="radio" name="account" id="partner" checked={account === 'partner'} className="mr-2 w-8 h-8 accent-main-dark" onChange={handleAccount}/>
+            <label htmlFor="partner" className="text-main text-xl font-semibold">
+              <h2 className='text-main text-2xl font-bold'>Partner</h2>
               <p className='text-sm text-gray-400 w-full xl:w-1/2'>Get paid faster by sending professional invoices to your customers. 
                 Accept card payments and get paid directly into your bank account.
               </p>

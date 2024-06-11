@@ -4,8 +4,8 @@ import PrivateRoutes from './Routes/PrivateRoutes'
 import Home from './Pages/Home'
 import LoginIndividual from './Pages/Login/LoginIndividual'
 import LoginCorporate from './Pages/Login/LoginCorporate'
-import RegisterIndividual from './Pages/Registration/RegistrationIndividual'
-import RegisterCorporate from './Pages/Registration/RegistrationCorporate'
+import RegistrationPersonal from './Pages/Registration/RegistrationPersonal'
+import RegistrationPartner from './Pages/Registration/RegistrationPartner'
 import RegisterBusiness from './Pages/Registration/RegistrationBusiness'
 import MyRoutes from './Routes/Routes'
 import Footer from "./Components/Footer"
@@ -21,11 +21,11 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/*" element={<PrivateRoutes><MyRoutes /></PrivateRoutes>} />
-            <Route path="/login/individual" element={<LoginIndividual/>} />
-            <Route path="/login/corporate" element={<LoginCorporate/>} />
-            <Route path="/register/individual" element={<RegisterIndividual/>} />
-            <Route path="/register/corporate" element={<RegisterCorporate/>} />
+            <Route path="/login/personal" element={<LoginIndividual/>} />
+            <Route path="/login/business" element={<LoginCorporate/>} />
+            <Route path="/register/personal" element={<RegistrationPersonal/>} />
             <Route path="/register/business" element={<RegisterBusiness/>} />
+            <Route path="/register/partner" element={<RegistrationPartner/>} />
           </Routes>
         </div>
         <Footer />

@@ -51,7 +51,7 @@ const OTPInput = ({ setError, setToggleOTP, setTogglePersonalInfo }) => {
           <input
             key={index}
             type="text"
-            className="w-12 md:w-24 h-12 md:h-24 text-2xl text-4xl outline-none text-center border-2 border-main rounded-lg m-2"
+            className="w-12 xl:w-24 h-12 xl:h-24 text-2xl text-4xl outline-none text-center border-2 border-main rounded-lg m-2"
             maxLength="1"
             value={data}
             onChange={(e) => handleChange(e.target, index)}

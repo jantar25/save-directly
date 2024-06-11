@@ -2,22 +2,22 @@ export const navigations = [
   {
     id: 1,
     name: 'Home',
-    path: '/'
+    path: 'https://savedirectly.com'
   },
   {
     id: 2,
     name: 'About',
-    path: '/about'
+    path: 'https://savedirectly.com/#about'
   },
   {
     id: 3,
     name: 'Services',
-    path: '/services'
+    path: 'https://savedirectly.com/#services'
   },
   {
     id: 4,
     name: 'Contact',
-    path: '/contact'
+    path: 'https://savedirectly.com/#contact'
   }
 ]
 
