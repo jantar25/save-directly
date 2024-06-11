@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 import { apiRequest } from '../Redux/ApiCalls'
 import { processes, workingProcesses } from '../Constants/process'
@@ -89,7 +90,7 @@ const Dashboard = () => {
                     className='w-full h-full object-cover rounded-t-xl border-b-8 border-main-dark'
                   />
                   <button className="absolute px-6 py-2 text-xl bg-main-dark text-white font-bold rounded-full right-8 -bottom-4">
-                    Explore
+                    <Link to={`/products/${compagnie.productId}`}>Explore</Link>
                   </button>
                 </div>
                 <div className="h-1/4 w-full flex flex-col items-center justify-center">

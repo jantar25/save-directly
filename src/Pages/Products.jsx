@@ -1,16 +1,48 @@
+import { useState, useEffect } from "react"
+import { useParams } from "react-router-dom"
+
+import { apiRequest } from "../Redux/ApiCalls"
+import insurance from '../Assets/Images/insurance.jpg'
+import furniture from '../Assets/Images/furniture.jpg'
 
 const Products = () => {
+  const [merchants, setMerchants] = useState([])
+  const { productId } = useParams()
+
+  const prods = merchants.find(merchant => merchant.productId === productId)?.merchants[0]
+
+  const getMerchants = async () => {
+    try {
+      const response = await apiRequest.get('/product/list')
+      setMerchants(response.data.data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
+  useEffect(() => {
+    getMerchants()
+  }, [])
+
   return (
     <div className='flex items-center justify-center gap-4 flex-wrap mt-8'>
-      products
-    {/* {Prod.map(product => 
-      <div key={product.id} className="w-[250px] h-[250px] shadow-xl rounded-xl border border-main-dark cursor-pointer">
-        <img src={product.product} alt="compagnie's logo" className='w-full h-2/3 object-cover rounded-t-xl' />
-        <div className="h-1/3 w-full flex items-center justify-center px-2">
-          <p className="text-xl text-main-dark font-bold text-center">{product.productName}</p>
+    {prods && prods?.products.map(prod => 
+      <div key={prod.merchantProductId} className="w-[250px] h-[250px] shadow-xl rounded-xl border border-main-dark">
+        <div className="h-3/4 relative">
+          <img
+            src={prods.merchantName === "RADIANT"? insurance : furniture}
+            alt="compagnie's logo"
+            className='w-full h-full object-cover rounded-t-xl border-b-8 border-main-dark'
+          />
+          <button className="absolute px-6 py-2 text-md bg-main-dark text-white font-bold rounded-full right-4 -bottom-4">
+            Start Saving
+          </button>
+        </div>
+        <div className="h-1/4 w-full flex items-center justify-center px-2">
+          <p className="text-xl text-main-dark font-bold text-center">{prod.merchantProductName}</p>
         </div>
       </div>
-    )} */}
+    )}
   </div>
   )
 }

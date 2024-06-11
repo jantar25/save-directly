@@ -12,7 +12,7 @@ const MyRoutes = () => {
       <Routes>
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/products' element={<Products />} />
+        <Route path='/products/:productId' element={<Products />} />
         {/* <Route path='/Account' element={<SpeedTest />} /> */}
       </Routes>
     </div>
