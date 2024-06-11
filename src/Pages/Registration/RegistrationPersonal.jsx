@@ -14,8 +14,8 @@ const RegistrationPersonal = () => {
   const [toggleOTP, setToggleOTP] = useState(false)
 
   return (
-    <div className='w-full h-full flex items-center justify-center'>
-      <div className="flex-1 h-full">
+    <div className='flex w-full h-full items-center justify-center overflow-y-auto'>
+      <div className="flex-1 w-full h-full flex flex-col">
         <Notification success={success} failure={error} color={error ? 'red': 'green'} />
         {!toggleOTP && !togglePersonalInfo && <NumberLookup setError={setError} setToggleOTP={setToggleOTP} />}
         {toggleOTP && !togglePersonalInfo &&<OTPInput setError={setError} setTogglePersonalInfo={setTogglePersonalInfo} setToggleOTP={setToggleOTP} />}

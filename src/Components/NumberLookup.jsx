@@ -60,7 +60,7 @@ const NumberLookup = ({ setError, setToggleOTP}) => {
   return (
     <div className="w-full h-full flex flex-col items-center justify-center p-2">
       <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Personal</span> Account</h2>
-      <p className='text-sm md:text-lg text-center text-gray-400 mb-4 w-[450px]'>
+      <p className='text-sm md:text-lg text-center text-gray-400 mb-4 max-w-[450px]'>
       Please fill out the form below to start saving and making deposits to your favorite brands.
       </p>
       <div className="w-full flex flex-col items-center justify-center">

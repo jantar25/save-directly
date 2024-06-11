@@ -51,11 +51,11 @@ const Navbar = () => {
         </div>
         {!currentUser?
           <div className="flex items-center gap-1">
-            <Link to='/login/individual'>
-              <button className='border border-2 border-main rounded-lg text-md md:text-xl font-bold px-4 py-1 text-main hover:text-orange-500'>Individual</button>
+            <Link to='/login/personal'>
+              <button className='border border-2 border-main rounded-lg text-md md:text-xl font-bold px-4 py-1 text-main hover:text-orange-500'>Personal</button>
             </Link>
-            <Link to='/login/corporate' className="bg-main ml-4 rounded-lg hover:bg-orange-500">
-              <button className='text-md md:text-xl font-bold px-4 py-2 text-white'>Corporate</button>
+            <Link to='/login/business' className="bg-main ml-4 rounded-lg hover:bg-orange-500">
+              <button className='text-md md:text-xl font-bold px-4 py-2 text-white'>Business</button>
             </Link>
           </div>:
           <div
@@ -87,13 +87,13 @@ const Navbar = () => {
             </div>
           </div>
           <div className='flex items-center mt-4 justify-between text-[10px]'>
-            <Link to='/privacyPolicy' onClick={ closeProfile }>
+            <Link to='https://savedirectly.com/privacy.html' target="_blank" onClick={ closeProfile }>
               <p className='hover:text-headers text-text text-center'>Privacy Policy</p>
             </Link>
-            <Link to='/cookiesPolicy' onClick={ closeProfile }>
+            <Link to='https://savedirectly.com/privacy.html' target="_blank" onClick={ closeProfile }>
               <p className='hover:text-headers text-text text-center'>Cookies Policy</p>
             </Link>
-            <Link to='/termsAndConditions' onClick={ closeProfile }>
+            <Link to='https://savedirectly.com/terms.html' target="_blank" onClick={ closeProfile }>
               <p className='hover:text-headers text-text text-center'>Terms and Conditions</p>
             </Link>
           </div>

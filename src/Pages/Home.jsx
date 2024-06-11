@@ -11,7 +11,7 @@ const Home = () => {
   }
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-center w-full h-full overflow-y-auto py-8 px-4 lg:px-24 gap-4">
+    <div className="flex-1 flex flex-col md:flex-row items-center justify-center w-full h-full overflow-y-auto py-8 px-4 lg:px-24 gap-4">
       <div className="flex-1 flex flex-col items-center justify-center">
         <img src={savingImg} alt="saving"/>
         <h1 className="hidden md:inline-block text-2xl lg:text-5xl text-center font-bold">
