@@ -157,9 +157,6 @@ const RegistrationPartner = () => {
               {isFetching && <div className="loading-spinner w-full mr-2"><Loading color={'white'} /></div>}
               {isFetching? 'Registering...' : 'Sign Up'}
             </button>
-            <p className='my-2'>Do you have an account?
-              <Link to='/login/corporate'><span className='text-main font-bold ml-1'>Sign In</span></Link>
-            </p>
           </form>
         </div>
       </div>

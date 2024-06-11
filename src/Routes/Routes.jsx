@@ -9,7 +9,7 @@ import Products from '../Pages/Products'
 
 const MyRoutes = () => {
   return (
-    <div className="h-[80vh] overflow-y-auto">
+    <div className="overflow-y-auto">
       <Routes>
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/profile' element={<Profile />} />

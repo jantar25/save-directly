@@ -51,10 +51,10 @@ const Navbar = () => {
         </div>
         {!currentUser?
           <div className="flex items-center gap-1">
-            <Link to='/login/personal'>
+            <Link to='/auth/login/personal'>
               <button className='border border-2 border-main rounded-lg text-md md:text-xl font-bold px-4 py-1 text-main hover:text-orange-500'>Personal</button>
             </Link>
-            <Link to='/login/business' className="bg-main ml-4 rounded-lg hover:bg-orange-500">
+            <Link to='/auth/login/business' className="bg-main ml-4 rounded-lg hover:bg-orange-500">
               <button className='text-md md:text-xl font-bold px-4 py-2 text-white'>Business</button>
             </Link>
           </div>:

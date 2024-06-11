@@ -7,11 +7,15 @@ import { MenuOption } from '../../Utils/MenuOptions'
 import Notification from '../../Components/Notification'
 import Loading from '../../Components/Loading'
 import { apiRequest } from '../../Redux/ApiCalls'
+import eye from '../../Assets/Icons/eye.svg'
+import eyeCrossed from '../../Assets/Icons/eye-crossed.svg'
 import businessImg from '../../Assets/Images/business.jpg'
 
 const RegistrationBusiness = () => {
   const [isFetching, setIsFetching] = useState(false)
   const [error, setError] = useState(null)
+  const [passwordType, setPasswordType] = useState('password')
+  const [confirmPasswordType, setConfirmPasswordType] = useState('password')
   const [toggleCountryCode, setToggleCountryCode] = useState(false)
   const [toggleCountry, setToggleCountry] = useState(false)
   const [inputs,setInputs] = useState({
@@ -28,6 +32,18 @@ const RegistrationBusiness = () => {
   const closeCountry = () => setToggleCountry(false)
   const dropDownCountyCodeRef = useClickOutside(closeCountryCode)
   const dropDownCountryRef = useClickOutside(closeCountry)
+
+  const togglePassword = () => {
+    passwordType==='password'?
+      setPasswordType('text') :
+      setPasswordType('password')
+  }
+
+  const toggleConfirmPassword = () => {
+    passwordType==='password'?
+    setConfirmPasswordType('text') :
+    setConfirmPasswordType('password')
+  }
 
   const handleChange = (e) => {
     setInputs({ ...inputs,[e.target.name]:e.target.value })
@@ -80,58 +96,91 @@ const RegistrationBusiness = () => {
           Please fill out the form below to start saving and making deposits to your favorite brands.
         </p>
         <div className="w-full flex flex-col items-center justify-center">
-          <form className='w-full lg:w-2/3 xl:w-1/2 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
+          <form className='w-full xl:w-3/4 2xl:w-1/2 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
             <div className="">
               <div className='flex flex-col w-full my-2'>
                 <label htmlFor="email" className='mb-1 text-lg font-bold'>Business Name*</label>
                 <input type='text' name='name' value={inputs.telephone} placeholder='Name'
                   className='p-2 border rounded-lg' onChange={handleChange} />
               </div>
-              <div className='flex flex-col w-full my-2'>
-                <label htmlFor="email" className='mb-1 text-lg font-bold'>Email*</label>
-                <input type='email' name='email' value={inputs.email} placeholder='Email'
-                  className='p-2 border rounded-lg' onChange={handleChange} />
+              <div className="flex flex-col lg:flex-row items-center gap-2">
+                <div className='flex-1 flex flex-col w-full my-2'>
+                  <label htmlFor="email" className='mb-1 text-lg font-bold'>Email*</label>
+                  <input type='email' name='email' value={inputs.email} placeholder='Email'
+                    className='p-2 border rounded-lg' onChange={handleChange} />
+                </div>
+                <div className="flex-1 w-full relative">
+                  <div className='flex flex-col w-full my-2'>
+                    <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Telephone*</label>
+                    <div className="flex items-center border rounded-lg">
+                      <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-2 cursor-pointer'>
+                        <p className=''>{Countries.find(option => option.dial_code === inputs.countryCode)?.dial_code}</p>
+                      </div>
+                      <input type='text' name='telephone' value={inputs.telephone} placeholder='0 7XX XXX XXX'
+                        className='p-2 border rounded-lg w-full' onChange={handleChange} />
+                    </div>
+                  </div>
+                  {toggleCountryCode &&
+                    <div className="absolute top-18 left-0 z-50 w-[320px] h-[300px] bg-white border border-gray-300 rounded-lg shadow-lg overflow-y-auto">
+                      <ul ref={dropDownCountyCodeRef}>
+                        {Countries.map((option, index) => (
+                          <MenuOption key={index} item={option} handleClick={() => onClickHandler(option)} />
+                        ))}
+                      </ul>
+                    </div>}
+                </div>
               </div>
-              <div className="relative">
+              <div className="flex flex-col lg:flex-row items-center gap-2">
+                <div className="flex-1 w-full relative">
+                  <div className='flex flex-col w-full my-2'>
+                    <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Nationality*</label>
+                    <div className="flex items-center border rounded-lg" onClick={() => setToggleCountry(!toggleCountry)}>
+                      <div className='p-2 cursor-pointer'>
+                        <p className='w-6 h-4'>{Countries.find(option => option.code === inputs.nationality)?.flag}</p>
+                      </div>
+                      <p className='p-2 border rounded-lg w-full'>{Countries.find(option => option.code === inputs.nationality)?.name}</p>
+                    </div>
+                  </div>
+                  {toggleCountry &&
+                    <div className="absolute top-18 left-0 z-50 w-[320px] h-[300px] bg-white border border-gray-300 rounded-lg shadow-lg overflow-y-auto">
+                      <ul ref={dropDownCountryRef}>
+                        {Countries.map((option, index) => (
+                          <MenuOption key={index} item={option} handleClick={() => onClickHandlerCountry(option)} />
+                        ))}
+                      </ul>
+                    </div>}
+                </div>
+                <div className='flex-1 flex flex-col w-full my-2'>
+                  <label htmlFor="email" className='mb-1 text-lg font-bold'>Tin Number*</label>
+                  <input type='text' name='indentitication' value={inputs.email} placeholder='Number'
+                    className='p-2 border rounded-lg' onChange={handleChange} />
+                </div>
+              </div>
+              <div className="flex flex-col lg:flex-row items-center gap-2">
                 <div className='flex flex-col w-full my-2'>
-                  <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Telephone*</label>
+                  <label htmlFor="password" className='mb-1 text-sm md:text-lg font-bold'>Password*</label>
                   <div className="flex items-center border rounded-lg">
-                    <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-2 cursor-pointer'>
-                      <p className=''>{Countries.find(option => option.dial_code === inputs.countryCode)?.dial_code}</p>
+                    <input type={passwordType} name='password' value={inputs.password} placeholder='Password'
+                      className='p-2 w-full rounded-lg' onChange={handleChange} />
+                    <div onClick={togglePassword} className='p-2 cursor-pointer' data-testid='toggle-password-button'>
+                      {passwordType !== 'text' ? <img src={eye} alt='eye-Icon' /> : <img src={eyeCrossed} alt='eyeCrossed-Icon' />}
                     </div>
-                    <input type='text' name='telephone' value={inputs.telephone} placeholder='0 7XX XXX XXX'
-                      className='p-2 border rounded-lg w-full' onChange={handleChange} />
                   </div>
                 </div>
-                {toggleCountryCode && <div className="absolute top-18 left-0 z-50 bg-white border border-gray-300 rounded-lg shadow-lg">
-                    <ul ref={dropDownCountyCodeRef}>
-                      {Countries.map((option, index) => (
-                        <MenuOption key={index} item={option} handleClick={() => onClickHandler(option)} />
-                      ))}
-                    </ul>
-                  </div>}
-              </div>
-              <div className="relative">
                 <div className='flex flex-col w-full my-2'>
-                  <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Nationality*</label>
-                  <div className="flex items-center border rounded-lg" onClick={() => setToggleCountry(!toggleCountry)}>
-                    <div className='p-2 cursor-pointer'>
-                      <p className='w-6 h-4'>{Countries.find(option => option.code === inputs.nationality)?.flag}</p>
+                  <label htmlFor="confirmPassword" className='mb-1 text-sm md:text-lg font-bold'>Confirm Password*</label>
+                  <div className="flex items-center border rounded-lg">
+                    <input type={confirmPasswordType} name='confirmPassword' value={inputs.password} placeholder='Password'
+                      className='p-2 w-full rounded-lg' onChange={handleChange} />
+                    <div onClick={toggleConfirmPassword} className='p-2 cursor-pointer' data-testid='toggle-password-button'>
+                      {confirmPasswordType !== 'text' ? <img src={eye} alt='eye-Icon' /> : <img src={eyeCrossed} alt='eyeCrossed-Icon' />}
                     </div>
-                    <p className='p-2 border rounded-lg w-full'>{Countries.find(option => option.code === inputs.nationality)?.name}</p>
                   </div>
                 </div>
-                {toggleCountry && <div className="absolute top-18 left-0 z-50 bg-white border border-gray-300 rounded-lg shadow-lg">
-                    <ul ref={dropDownCountryRef}>
-                      {Countries.map((option, index) => (
-                        <MenuOption key={index} item={option} handleClick={() => onClickHandlerCountry(option)} />
-                      ))}
-                    </ul>
-                  </div>}
               </div>
               <div className='flex flex-col w-full my-2'>
-                <label htmlFor="email" className='mb-1 text-lg font-bold'>Tin Number*</label>
-                <input type='text' name='indentitication' value={inputs.email} placeholder='Number'
+                <label htmlFor="address" className='mb-1 text-lg font-bold'>Address*</label>
+                <input type='text' name='address' value={inputs.telephone} placeholder='Address'
                   className='p-2 border rounded-lg' onChange={handleChange} />
               </div>
             </div>
@@ -152,7 +201,7 @@ const RegistrationBusiness = () => {
               {isFetching? 'Registering...' : 'Sign Up'}
             </button>
             <p className='my-2'>Do you have an account?
-              <Link to='/login/business'><span className='text-main font-bold ml-1'>Sign In</span></Link>
+              <Link to='/auth/login/business'><span className='text-main font-bold ml-1'>Sign In</span></Link>
             </p>
           </form>
         </div>

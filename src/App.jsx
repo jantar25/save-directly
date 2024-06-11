@@ -1,12 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import PrivateRoutes from './Routes/PrivateRoutes'
+import ProtectedRoutes from './Routes/ProtectedRoutes'
 
 import Home from './Pages/Home'
-import LoginIndividual from './Pages/Login/LoginIndividual'
-import LoginCorporate from './Pages/Login/LoginCorporate'
-import RegistrationPersonal from './Pages/Registration/RegistrationPersonal'
-import RegistrationPartner from './Pages/Registration/RegistrationPartner'
-import RegisterBusiness from './Pages/Registration/RegistrationBusiness'
+import AuthRoutes from './Routes/AuthRoutes'
 import MyRoutes from './Routes/Routes'
 import Footer from "./Components/Footer"
 import Navbar from "./Components/Navbar"
@@ -17,15 +14,11 @@ const App = () => {
     <div className="font-Manrope">
       <Router>
         <Navbar />
-        <div className="flex flex-col h-[90vh]">
+        <div className="flex flex-col min-h-[80vh] md:h-[90vh]">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/*" element={<PrivateRoutes><MyRoutes /></PrivateRoutes>} />
-            <Route path="/login/personal" element={<LoginIndividual/>} />
-            <Route path="/login/business" element={<LoginCorporate/>} />
-            <Route path="/register/personal" element={<RegistrationPersonal/>} />
-            <Route path="/register/business" element={<RegisterBusiness/>} />
-            <Route path="/register/partner" element={<RegistrationPartner/>} />
+            <Route path="/auth/*" element={<ProtectedRoutes><AuthRoutes /></ProtectedRoutes>} />
           </Routes>
         </div>
         <Footer />

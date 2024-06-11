@@ -89,7 +89,7 @@ const NumberLookup = ({ setError, setToggleOTP}) => {
             {isFetching? 'Verifying...' : 'Verify'}
           </button>
           <p className='my-2'>Do you have an account?
-            <Link to='/login/personal'><span className='text-main font-bold ml-1'>Sign In</span></Link>
+            <Link to='/auth/login/personal'><span className='text-main font-bold ml-1'>Sign In</span></Link>
           </p>
         </form>
       </div>

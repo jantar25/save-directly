@@ -53,7 +53,7 @@ const Home = () => {
             </label>
           </div>
         </div>
-        <Link to={`/register/${account}`}>
+        <Link to={`/auth/register/${account}`}>
           <button className='bg-main text-2xl font-bold text-white px-12 py-2 rounded-lg mt-8'>
             Register
           </button>
