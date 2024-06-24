@@ -12,13 +12,12 @@ const Dashboard = () => {
   const [merchants, setMerchants] = useState([])
   const {currentUser } = useSelector(state => state.currentUser)
 
-  console.log(merchants)
-  console.log(balance)
-
   const getBalance = async () => {
     try {
       const response = await apiRequest.get('/inquiry/balance')
-      setBalance(response.data)
+      if(response.data.status === 200){
+        setBalance(response.data.total)
+      }
     } catch (error) {
       console.log(error)
     }
@@ -63,7 +62,10 @@ const Dashboard = () => {
           <h1 className="font-bold text-3xl mb-4">Welcom <span className="text-main">{currentUser.customerNames}</span>!</h1>
           <div className="flex items-center text-xl lg:text-3xl font-bold text-main-dark shadow-lg rounded-lg p-4 bg-gray-200">
             Total Bal: 
-            <p>FRW 20 500 000</p>
+            <p>
+              {balance}
+              <span className='ml-2'>Frw</span>
+            </p>
           </div>
         </div>
         <div className="my-8">

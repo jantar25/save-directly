@@ -14,7 +14,7 @@ const App = () => {
     <div className="font-Manrope">
       <Router>
         <Navbar />
-        <div className="flex flex-col min-h-[80vh] md:h-[90vh]">
+        <div className="flex flex-col min-h-[80vh] md:h-[80vh]">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/*" element={<PrivateRoutes><MyRoutes /></PrivateRoutes>} />

@@ -35,8 +35,8 @@ export const accountNavigations = [
   },
   {
     id: 3,
-    name: 'My Orders',
-    path: '/Orders'
+    name: 'My Transactions',
+    path: '/transactions'
   },
   {
     id: 4,

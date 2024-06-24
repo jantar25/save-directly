@@ -72,8 +72,8 @@ const Navbar = () => {
           <div className="bg-white rounded-xl flex flex-col items-center justify-start py-4">
             <div className='flex flex-col items-center justify-center'>
               {accountNavigations.map((nav) => (
-                <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? 'bg-headers my-1 w-full text-center py-2 rounded-md text-white'
-                : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeProfile }>
+                <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? 'bg-main my-1 w-full text-center p-2 rounded-md text-white'
+                : 'my-1 w-full text-center p-2 rounded-md hover:bg-main hover-text-white'} onClick={ closeProfile }>
                   <span className='text-xl font-semibold'>{nav.name}</span>
                 </NavLink>
                 ))
@@ -103,7 +103,7 @@ const Navbar = () => {
          bg-white p-4 border' ref={ dropDownMenuRef }>
           {navigations.map((nav) => (
             <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive?  'bg-main my-1 w-full text-center py-2 rounded-md text-white'
-            : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md'} onClick={ closeMenu }>
+            : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md hover:bg-main hover:text-white'} onClick={ closeMenu }>
               <span className='text-xl font-semibold'>{nav.name}</span>
             </NavLink>
             ))

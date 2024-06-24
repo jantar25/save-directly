@@ -3,7 +3,9 @@ import { Routes, Route } from 'react-router-dom'
 import Dashboard from '../Pages/Dashboard'
 import Profile from '../Pages/Profile'
 import Products from '../Pages/Products'
-// import RoleBasedRoutes from '@/components/Dashboard/RoleBasedRoutes'
+import Transactions from '../Pages/Transactions'
+import MySavings from '../Pages/MySavings'
+import MyWallet from '../Pages/MyWallet'
 
 
 const MyRoutes = () => {
@@ -11,9 +13,11 @@ const MyRoutes = () => {
     <div className="overflow-y-auto">
       <Routes>
         <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/profile' element={<Profile />} />
+        <Route path='/account' element={<Profile />} />
         <Route path='/products/:productId' element={<Products />} />
-        {/* <Route path='/Account' element={<SpeedTest />} /> */}
+        <Route path='/transactions' element={<Transactions />} />
+        <Route path='/savings' element={<MySavings />} />
+        <Route path='/wallet' element={<MyWallet />} />
       </Routes>
     </div>
     )
