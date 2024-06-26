@@ -1,26 +1,34 @@
 import { useEffect, useState } from 'react'
 
 import { apiRequest } from '../Redux/ApiCalls'
+import Loading from '../Components/Loading'
 
 const Transactions = () => {
   const [transactions, setTransactions] = useState([])
-
-  console.log(transactions)
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const getTransactions = async () => {
+      setIsLoading(true)
       try {
         const response = await apiRequest.get('/history')
-        if(response.status === 200 & response.data.data) {
+        if(response.data.status === 200) {
             setTransactions(response.data.data)
         }
+        setIsLoading(false)
       } catch (error) {
         console.log(error)
+        setIsLoading(false)
       }
     }
 
     getTransactions()
   }, [])
+
+  if(isLoading) return <div className="mt-32">
+  <h1 className="text-3xl text-main-dark font-bold text-center">Loading</h1>
+  <Loading />
+</div>
 
   return (
     <div className='px-4 lg:px-24 py-8'>
