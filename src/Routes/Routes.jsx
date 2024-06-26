@@ -4,8 +4,8 @@ import Dashboard from '../Pages/Dashboard'
 import Profile from '../Pages/Profile'
 import Products from '../Pages/Products'
 import Transactions from '../Pages/Transactions'
-import MySavings from '../Pages/MySavings'
 import MyWallet from '../Pages/MyWallet'
+import MySavings from '../Pages/MySavings'
 
 
 const MyRoutes = () => {

@@ -98,7 +98,7 @@ const LoginPersonal = () => {
                   <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-2 cursor-pointer'>
                     <p className=''>{Countries.find(option => option.dial_code === inputs.countryCode)?.dial_code}</p>
                   </div>
-                  <input type='text' name='telephone' value={inputs.telephone} placeholder='0 7XX XXX XXX'
+                  <input type='text' name='telephone' value={inputs.telephone} placeholder='7XX XXX XXX'
                     className={`w-full border rounded-lg p-2 outline-none ${validationErrors['Telephone'] ? 'border-red-extended' : 'border-gray-300'}`}
                     onChange={handleChangePhone} />
                 </div>

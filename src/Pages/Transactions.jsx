@@ -12,7 +12,8 @@ const Transactions = () => {
       setIsLoading(true)
       try {
         const response = await apiRequest.get('/history')
-        if(response.data.status === 200) {
+        console.log(response.data.data)
+        if(response.data.status === 200 && response.data.data) {
             setTransactions(response.data.data)
         }
         setIsLoading(false)
