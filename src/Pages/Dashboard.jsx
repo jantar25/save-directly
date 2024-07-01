@@ -10,6 +10,7 @@ import radiantLogo from '../Assets/Images/radiant.jpeg'
 const Dashboard = () => {
   const [balance, setBalance] = useState(0)
   const [merchants, setMerchants] = useState([])
+  const [allMerchants, setAllMerchants] = useState([])
   const {currentUser } = useSelector(state => state.currentUser)
 
   const getBalance = async () => {
@@ -27,8 +28,29 @@ const Dashboard = () => {
     try {
       const response = await apiRequest.get('/product/list')
       setMerchants(response.data.data)
+      setAllMerchants(response.data.data)
     } catch (error) {
       console.log(error)
+    }
+  }
+
+  const filterByMerchant = (e) => {
+    const merchantId = e.target.value
+    if(merchantId){
+      const filteredMerchants = allMerchants.filter(merchant => merchant.productId === merchantId)
+      setMerchants(filteredMerchants)
+    }else{
+      setMerchants(allMerchants)
+    }
+  }
+
+  const searchMerchant = (e) => {
+    const searchValue = e.target.value
+    if(searchValue){
+      const searchedMerchants = allMerchants.filter(merchant => merchant.merchants[0]?.merchantName.toLowerCase().includes(searchValue.toLowerCase()))
+      setMerchants(searchedMerchants)
+    }else{
+      setMerchants(allMerchants)
     }
   }
 
@@ -69,19 +91,26 @@ const Dashboard = () => {
           </div>
         </div>
         <div className="my-8">
-          <div className='mb-8 flex flex-col md:flex-row items-center justify-between gap-8'>
-            <div className='flex-1'>
-              <input type="text" placeholder='Search for a merchant' className="w-full border border-gray-500 px-4 py-3 rounded-2xl" />
+          <div className='flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8 mb-8'>
+            <div className='w-full flex-1'>
+              <input type="text" placeholder='Search for a merchant'
+                className="w-full border border-gray-500 px-4 py-3 rounded-2xl"
+                onChange={searchMerchant}
+              />
             </div>
-            <div className='flex-1'>
-              <select name="" id="" className="w-full border border-gray-500 px-4 py-3 rounded-2xl">
-                <option value="">Sort By</option>
-                <option value="popular">Popular</option>
-                <option value="newest">Newest</option>
-                <option value="alphabetical">Alphabetical</option>
+            <div className='w-full flex-1'>
+              <select className="w-full border border-gray-500 px-4 py-3 rounded-2xl" onChange={filterByMerchant}>
+                <option value="">SORT BY</option>
+                {allMerchants.map(merchant =>
+                  <option key={merchant.productId} value={merchant.productId}>{merchant.merchants[0]?.merchantName}</option>
+                )}
               </select>
             </div>
           </div>
+          {merchants.length === 0 ?
+            <div className="flex items-center justify-center h-96">
+              <p className="text-2xl font-bold text-main-dark">No merchant found</p>
+            </div>:
           <div className='flex items-center justify-center gap-8 flex-wrap mb-4'>
             {merchants.map(compagnie => 
               <div key={compagnie.productId} className="w-[350px] h-[400px] shadow-xl rounded-xl border border-main-dark">
@@ -106,6 +135,7 @@ const Dashboard = () => {
               </div>
             )}
           </div>
+          }
         </div>
       </div>
       <div className="bg-main py-8 flex flex-col items-center justify-center gap-8">

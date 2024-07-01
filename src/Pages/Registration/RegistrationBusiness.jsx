@@ -88,15 +88,15 @@ const RegistrationBusiness = () => {
   }
 
   return (
-    <div className='w-full h-full flex items-center justify-center overflow-y-auto'>
+    <div className='w-full h-full flex items-center justify-center'>
       <Notification failure={error} color={'red'} />
-      <div className="flex-1 w-full h-full flex flex-col items-center justify-center p-2">
+      <div className="flex-1 w-full h-full flex flex-col items-center justify-center p-4 overflow-y-auto">
         <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Business</span> Account</h2>
         <p className='text-sm md:text-lg text-center text-gray-400 mb-4 max-w-[450px]'>
           Please fill out the form below to start saving and making deposits to your favorite brands.
         </p>
         <div className="w-full flex flex-col items-center justify-center">
-          <form className='w-full xl:w-3/4 2xl:w-1/2 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
+          <form className='w-full xl:w-3/4 2xl:w-2/3 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
             <div className="">
               <div className='flex flex-col w-full my-2'>
                 <label htmlFor="email" className='mb-1 text-lg font-bold'>Business Name*</label>
@@ -201,7 +201,7 @@ const RegistrationBusiness = () => {
               {isFetching? 'Registering...' : 'Sign Up'}
             </button>
             <p className='my-2'>Do you have an account?
-              <Link to='/auth/login/business'><span className='text-main font-bold ml-1'>Sign In</span></Link>
+              <Link to='/auth/login/merchant'><span className='text-main font-bold ml-1'>Sign In</span></Link>
             </p>
           </form>
         </div>

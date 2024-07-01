@@ -13,7 +13,7 @@ const MyRoutes = () => {
     <div className="overflow-y-auto">
       <Routes>
         <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/account' element={<Profile />} />
+        <Route path='/profile' element={<Profile />} />
         <Route path='/products/:productId' element={<Products />} />
         <Route path='/transactions' element={<Transactions />} />
         <Route path='/savings' element={<MySavings />} />

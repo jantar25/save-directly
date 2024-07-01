@@ -71,16 +71,16 @@ const LoginBusiness = () => {
   return (
     <div className='flex w-full h-full items-center justify-center overflow-y-auto'>
       <Notification failure={error} color={'red'} />
-      <div className="h-full hidden md:flex flex-1 bg-red-300">
+      <div className="h-full hidden lg:flex flex-1 bg-red-300">
         <img src={businessImg} alt="business registration" className="w-full h-full object-cover" />
       </div>
       <div className="w-full h-full flex flex-1 flex-col items-center justify-center p-2">
-        <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Business<span className='text-main ml-2'>Account</span></h2>
-        <p className='text-sm md:text-xl text-center text-gray-400 mb-8 max-w-[450px]'>
+        <h2 className='text-2xl md:text-4xl font-bold text-center mb-2'>Merchant<span className='text-main ml-2'>Account</span></h2>
+        <p className='text-md md:text-xl text-center text-gray-400 mb-8 max-w-[450px]'>
           Fill the form below to continue where you left with your saving.
         </p>
         <div className="w-full flex flex-col items-center justify-center">
-          <form className='w-full lg:w-2/3 xl:w-1/2 p-4 border border-gray-300 rounded-lg' onSubmit={handleSubmit}>
+          <form className='w-full md:w-1/2 xl:w-2/3 2xl:w-1/2 p-4 border border-gray-300 rounded-lg' onSubmit={handleSubmit}>
             <div className='flex flex-col w-full my-2'>
               <label htmlFor="email" className='mb-1 text-sm md:text-lg font-bold'>Email*</label>
               <input type='email' name='email' value={inputs.email} placeholder='Email'
@@ -101,9 +101,9 @@ const LoginBusiness = () => {
               </div>
             </div>
             <p className='my-2 text-sm md:text-lg'>Don&#39;t you have an account?
-              <Link to='/auth/register/business'><span className='text-main font-bold ml-1'>Sign Up</span></Link>
+              <Link to='/auth/register/merchant'><span className='text-main font-bold ml-1'>Sign Up</span></Link>
             </p>
-            <Link to='/auth/forgetPassword'><p className='text-main font-bold my-2 text-sm md:text-lg'>Forgot Password?</p></Link>
+            {/* <Link to='/auth/forgetPassword'><p className='text-main font-bold my-2 text-sm md:text-lg'>Forgot Password?</p></Link> */}
             <button type='submit' className='flex items-center justify-start px-4 py-2 text-md text-white bg-main rounded-lg font-semibold shadow-sm' disabled={isFetching}>
               {isFetching && <div className="loading-spinner w-full mr-2"><Loading color={'white'} /></div>}
               {isFetching? 'Logging...' : 'Login In'}

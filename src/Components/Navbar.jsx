@@ -41,21 +41,23 @@ const Navbar = () => {
       </div>
 
       <div className='flex items-center justify-between gap-4'>
-        <div className='hidden lg:flex items-center justify-between'>
-          {navigations.map((nav) => (
-            <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? navLinkActive : ''}>
-              <span className='text-md font-semibold mx-2 text-white hover:border-b-4 border-main ease-in duration-200'>{nav.name}</span>
-            </NavLink>
-            ))
-          }
-        </div>
+        {!currentUser &&
+          <div className='hidden lg:flex items-center justify-between'>
+            {navigations.map((nav) => (
+              <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? navLinkActive : ''}>
+                <span className='text-md font-semibold mx-2 text-white hover:border-b-4 border-main ease-in duration-200'>{nav.name}</span>
+              </NavLink>
+              ))
+            }
+          </div>
+        }
         {!currentUser?
           <div className="flex items-center gap-1">
             <Link to='/auth/login/personal'>
               <button className='border border-2 border-main rounded-lg text-md md:text-xl font-bold px-4 py-1 text-main hover:text-orange-500'>Personal</button>
             </Link>
-            <Link to='/auth/login/business' className="bg-main ml-4 rounded-lg hover:bg-orange-500">
-              <button className='text-md md:text-xl font-bold px-4 py-2 text-white'>Business</button>
+            <Link to='/auth/login/merchant' className="bg-main ml-4 rounded-lg hover:bg-orange-500">
+              <button className='text-md md:text-xl font-bold px-4 py-2 text-white'>Merchant</button>
             </Link>
           </div>:
           <div

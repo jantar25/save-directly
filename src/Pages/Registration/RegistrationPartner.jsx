@@ -73,15 +73,15 @@ const RegistrationPartner = () => {
   }
 
   return (
-    <div className='flex w-full h-full items-center justify-center overflow-y-auto'>
+    <div className='flex w-full h-full items-center justify-center'>
       <Notification failure={error} color={'red'} />
-      <div className="flex-1 h-full flex flex-col items-center justify-center p-2">
-        <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Partner</span> Account</h2>
+      <div className="flex-1 h-full flex flex-col items-center justify-center p-4 overflow-y-auto">
+        <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Corporate</span> Account</h2>
         <p className='text-sm md:text-lg text-center text-gray-400 mb-4 max-w-[450px]'>
           Please fill out the form below to start saving and making deposits to your favorite brands.
         </p>
         <div className="w-full flex flex-col items-center justify-center">
-          <form className='w-full lg:w-2/3 xl:w-1/2 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
+          <form className='w-full xl:w-3/4 2xl:w-2/3 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
             <div className="">
               <div className='flex flex-col w-full my-2'>
                 <label htmlFor="email" className='mb-1 text-lg font-bold'>Business Name*</label>

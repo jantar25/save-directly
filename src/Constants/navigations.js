@@ -25,8 +25,8 @@ export const navigations = [
 export const accountNavigations = [
   {
     id: 1,
-    name: 'My Wallet',
-    path: '/wallet'
+    name: 'Profile',
+    path: '/profile'
   },
   {
     id: 2,
@@ -40,9 +40,9 @@ export const accountNavigations = [
   },
   {
     id: 4,
-    name: 'My Account',
-    path: '/account'
-  }
+    name: 'My Wallet',
+    path: '/wallet'
+  },
 ]
 
 export const countryCodeOptions = [

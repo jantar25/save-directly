@@ -1,20 +1,36 @@
 import { useEffect, useState } from 'react'
 
+import { DownloadArrayAsExcel } from '../Utils/MenuOptions'
 import { apiRequest } from '../Redux/ApiCalls'
 import Loading from '../Components/Loading'
 
 const Transactions = () => {
+  const [allTransactions, setAllTransactions] = useState([])
   const [transactions, setTransactions] = useState([])
   const [isLoading, setIsLoading] = useState(false)
+
+  const searchTransaction = (e) => {
+    const searchValue = e.target.value
+    if(searchValue){
+      const searchedTransactions = allTransactions.filter(transaction => transaction.transactionId.toLowerCase().includes(searchValue.toLowerCase()))
+      setTransactions(searchedTransactions)
+    }else{
+      setTransactions(allTransactions)
+    }
+  }
+
+  const downloadTransactionReport = async () => {
+    DownloadArrayAsExcel(transactions, 'SaveDirectly-Transactions-Report')
+  }
 
   useEffect(() => {
     const getTransactions = async () => {
       setIsLoading(true)
       try {
         const response = await apiRequest.get('/history')
-        console.log(response.data.data)
         if(response.data.status === 200 && response.data.data) {
             setTransactions(response.data.data)
+            setAllTransactions(response.data.data)
         }
         setIsLoading(false)
       } catch (error) {
@@ -34,9 +50,20 @@ const Transactions = () => {
   return (
     <div className='px-4 lg:px-24 py-8'>
         <h1 className='text-4xl font-bold text-center mt-8'>My Transactions</h1>
+        <div className='w-full flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8 my-8'>
+            <div className='w-full flex-1'>
+              <input type="text" placeholder='Search for transaction by reference ID'
+                className="w-full border border-gray-500 px-4 py-3 rounded-2xl"
+                onChange={searchTransaction}
+              />
+            </div>
+            <button className='w-full flex-1 bg-main p-3 text-white font-semibold rounded-2xl' onClick={downloadTransactionReport}>
+              Download Transaction Report
+            </button>
+          </div>
         {transactions.length > 0 ? 
         <div className='flex flex-col items-center gap-8 mt-8'>
-            {transactions.map(transaction => (
+          {transactions.map(transaction => (
             <div key={transaction.transactionId} className='w-full flex flex-col md:flex-row items-center justify-between bg-main-dark p-4 rounded-xl shadow-2xl gap-2'>
                 <p className='text-md text-white'>{transaction.transactionId}</p>
                 <div className="flex items-center justify-center md:flex-col gap-2 md:gap-0">

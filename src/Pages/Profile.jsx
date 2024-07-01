@@ -24,8 +24,6 @@ const Profile = () => {
   const [confirmNewPasswordType, setConfirmNewPasswordType] = useState('password')
   const [toggleChangePassword,setToggleChangePassword] = useState(false)
 
-  console.log(currentUser)
-
   const toggleNewPassword = () => {
     newPasswordType==='password'?
       setNewPasswordType('text') :
@@ -135,14 +133,14 @@ const Profile = () => {
               <p className='text-xl md:text-3xl text-headers'>{currentUser?.customerMsisdn}</p>
               <span className='text-xl md:text-3xl text-gray-400'></span>
             </div>
-            <div>
+            {/* <div>
               <input data-testid='image-input' type="file" accept='Image/*' id="file" onChange={(e) => setImg(e.target.files[0])} className='hidden' />
               <label htmlFor="file" className='cursor-pointer'>
                 <div className='border border-dashed p-4 md:p-8 mt-4 text-center border-4 text-text text-2xl'>
                   Click in this area to add a Picture
                 </div>
               </label>
-            </div>
+            </div> */}
           </div>
         </div>
         {toggleChangePassword &&
@@ -196,12 +194,13 @@ const Profile = () => {
             </div>
             <div className='flex flex-col md:flex-row md:items-center  w-full my-2'>
               <label htmlFor="names" className='mb-1 text-lg font-bold basis-1/3'>Full Name*</label>
-              <input data-testid='names' type='text' name='names'  defaultValue={currentUser?.customerNames}
-                className='p-2 border rounded-lg basis-2/3 w-full' onChange={(e) => setNames(e.target.value)} />
+              <div className='p-2 border rounded-lg basis-2/3 w-full'>{currentUser?.customerNames}</div>
+              {/* <input data-testid='names' type='text' name='names'  defaultValue={currentUser?.customerNames}
+                className='p-2 border rounded-lg basis-2/3 w-full' onChange={(e) => setNames(e.target.value)} /> */}
             </div>
-            <button data-testid='update' type='submit' className='px-4 py-3 bg-main text-white font-bold rounded-lg mt-8' disabled={isFetching}>
+            {/* <button data-testid='update' type='submit' className='px-4 py-3 bg-main text-white font-bold rounded-lg mt-8' disabled={isFetching}>
               {isFetching? 'Updating...' : 'Update profile'}
-            </button>
+            </button> */}
           </form>
         </div>
 

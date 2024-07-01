@@ -13,11 +13,10 @@ const AuthRoutes = () => {
     <div className="flex-1 h-full w-full overflow-y-auto">
       <Routes>
         <Route path="/login/personal" element={<LoginPersonal/>} />
-        <Route path="/login/business" element={<LoginBusiness/>} />
+        <Route path="/login/merchant" element={<LoginBusiness/>} />
         <Route path="/register/personal" element={<RegistrationPersonal/>} />
-        <Route path="/register/business" element={<RegisterBusiness/>} />
-        <Route path="/register/partner" element={<RegistrationPartner/>} />
-        {/* <Route path='/Account' element={<SpeedTest />} /> */}
+        <Route path="/register/merchant" element={<RegisterBusiness/>} />
+        <Route path="/register/corporate" element={<RegistrationPartner/>} />
       </Routes>
     </div>
     )
