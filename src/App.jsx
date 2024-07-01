@@ -16,7 +16,7 @@ const App = () => {
         <Navbar />
         <div className="flex flex-col min-h-[80vh] md:h-[80vh]">
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/" element={<ProtectedRoutes><Home /></ProtectedRoutes>} />
             <Route path="/*" element={<PrivateRoutes><MyRoutes /></PrivateRoutes>} />
             <Route path="/auth/*" element={<ProtectedRoutes><AuthRoutes /></ProtectedRoutes>} />
           </Routes>
