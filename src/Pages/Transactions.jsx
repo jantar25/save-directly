@@ -50,7 +50,8 @@ const Transactions = () => {
   return (
     <div className='px-4 lg:px-24 py-8'>
         <h1 className='text-4xl font-bold text-center mt-8'>My Transactions</h1>
-        <div className='w-full flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8 my-8'>
+        {allTransactions.length > 0 && 
+          <div className='w-full flex flex-col md:flex-row items-center justify-between gap-2 md:gap-8 my-8'>
             <div className='w-full flex-1'>
               <input type="text" placeholder='Search for transaction by reference ID'
                 className="w-full border border-gray-500 px-4 py-3 rounded-2xl"
@@ -61,6 +62,7 @@ const Transactions = () => {
               Download Transaction Report
             </button>
           </div>
+        }
         {transactions.length > 0 ? 
         <div className='flex flex-col items-center gap-8 mt-8'>
           {transactions.map(transaction => (
