@@ -81,7 +81,7 @@ const Transactions = () => {
             </div>
             ))}
         </div>
-        : <p className='text-lg text-gray-400 text-center my-24 font-bold'>No Transaction Yet!</p>
+        : <p className='text-lg text-gray-400 text-center my-24 font-bold'>No Transaction Found!</p>
         }
     </div>
   )

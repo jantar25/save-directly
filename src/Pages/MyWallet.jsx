@@ -6,7 +6,7 @@ import Loading from '../Components/Loading'
 
 
 const MyWallet = () => {
-  const [balance, setBalance] = useState({})
+  const [balance, setBalance] = useState([])
   const [isLoading, setIsLoading] = useState(false)
 
   const getBalance = async () => {
@@ -22,8 +22,6 @@ const MyWallet = () => {
       setIsLoading(false)
     }
   }
-
-  console.log(balance)
 
   useEffect(() => {
     getBalance()
