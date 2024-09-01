@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 
 import { apiRequest } from '../Redux/ApiCalls'
 import { processes, workingProcesses } from '../Constants/process'
+import Loading from '../Components/Loading'
 import danubeLogo from '../Assets/Images/danube.png'
 import radiantLogo from '../Assets/Images/radiant.jpeg'
 
@@ -11,6 +12,7 @@ const Dashboard = () => {
   const [balance, setBalance] = useState(0)
   const [merchants, setMerchants] = useState([])
   const [allMerchants, setAllMerchants] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
   const {currentUser } = useSelector(state => state.currentUser)
 
   const getBalance = async () => {
@@ -25,12 +27,15 @@ const Dashboard = () => {
   }
 
   const getMerchants = async () => {
+    setIsLoading(true)
     try {
       const response = await apiRequest.get('/product/list')
       setMerchants(response.data.data)
       setAllMerchants(response.data.data)
+      setIsLoading(false)
     } catch (error) {
       console.log(error)
+      setIsLoading(false)
     }
   }
 
@@ -58,6 +63,11 @@ const Dashboard = () => {
     getBalance()
     getMerchants()
   }, [])
+
+  if(isLoading) return <div className="mt-32">
+    <h1 className="text-3xl text-main-dark font-bold text-center">Loading</h1>
+    <Loading />
+  </div>
 
   return (
     <div>
@@ -112,20 +122,20 @@ const Dashboard = () => {
               <p className="text-2xl font-bold text-main-dark">No merchant found</p>
             </div>:
           <div className='flex items-center justify-center gap-8 flex-wrap mb-4'>
-            {merchants.map(compagnie => 
-              <div key={compagnie.productId} className="w-[350px] h-[400px] shadow-xl rounded-xl border border-main-dark">
+            {merchants.map(merchant => 
+              <div key={merchant.productId} className="w-[350px] h-[400px] shadow-xl rounded-xl border border-main-dark">
                 <div className="h-3/4 relative">
                   <img
-                    src={compagnie.merchants[0]?.merchantName === "RADIANT"? radiantLogo : danubeLogo}
+                    src={merchant.merchants[0]?.merchantName === "RADIANT"? radiantLogo : danubeLogo}
                     alt="compagnie's logo"
                     className='w-full h-full object-cover rounded-t-xl border-b-8 border-main-dark'
                   />
-                  <button className="absolute px-6 py-2 text-xl bg-main-dark text-white font-bold rounded-full right-8 -bottom-4">
-                    <Link to={`/products/${compagnie.productId}`}>Explore</Link>
+                  <button className="absolute px-6 py-2 text-xl bg-main-dark hover:bg-main-hover text-white font-bold rounded-full right-8 -bottom-4">
+                    <Link to={`/products/${merchant.productId}`}>Explore</Link>
                   </button>
                 </div>
                 <div className="h-1/4 w-full flex flex-col items-center justify-center">
-                  <p className="text-xl text-main-dark font-bold text-center">{compagnie.merchants[0]?.merchantName}</p>
+                  <p className="text-xl text-main-dark font-bold text-center">{merchant.merchants[0]?.merchantName}</p>
                   {/* <div className="flex items-center gap-2">
                     <img src={boltIcon} alt="bolt icon" className="w-4 h-4" />
                     <span>Earn at least</span>

@@ -18,11 +18,6 @@ const MySavings = () => {
     return item
   })
 
-  console.log(balance)
-  console.log(transactions)
-  console.log(balanceDataWithTransactions)
-
-
   const getBalance = async () => {
     setIsLoading(true)
     try {

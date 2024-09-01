@@ -20,7 +20,7 @@ export default {
       colors: _ => ({
         'main': '#FF9900',
         'main-dark': '#37517e',
-        'main-hover': '#3C456B',
+        'main-hover': '#4d6691',
         'red-extended':'#EF5455',
         'yellow-extended':'#FAD644',
         'gray-extended':'#E4E4E4',
