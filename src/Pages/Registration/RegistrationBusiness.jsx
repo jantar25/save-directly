@@ -91,33 +91,33 @@ const RegistrationBusiness = () => {
     <div className='w-full h-full flex items-center justify-center'>
       <Notification failure={error} color={'red'} />
       <div className="flex-1 w-full h-full flex flex-col items-center justify-center p-4 overflow-y-auto">
-        <h2 className='text-xl md:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Business</span> Account</h2>
-        <p className='text-sm md:text-lg text-center text-gray-400 mb-4 max-w-[450px]'>
+        <h2 className='text-2xl 2xl:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Business</span> Account</h2>
+        <p className='text-sm 2xl:text-lg text-center text-gray-400 mb-4 max-w-[450px]'>
           Please fill out the form below to start saving and making deposits to your favorite brands.
         </p>
         <div className="w-full flex flex-col items-center justify-center">
-          <form className='w-full xl:w-3/4 2xl:w-2/3 p-4 border border-gray-300 p-4 rounded-lg' onSubmit={handleSubmit}>
+          <form className='w-full xl:w-3/4 2xl:w-2/3 p-4 border border-gray-300 p-2 xl:p-4 rounded-lg' onSubmit={handleSubmit}>
             <div className="">
-              <div className='flex flex-col w-full my-2'>
-                <label htmlFor="email" className='mb-1 text-lg font-bold'>Business Name*</label>
+              <div className='flex flex-col w-full my-1'>
+                <label htmlFor="email" className='text-sm 2xl:text-lg font-bold'>Business Name*</label>
                 <input type='text' name='name' value={inputs.telephone} placeholder='Name'
-                  className='p-2 border rounded-lg' onChange={handleChange} />
+                  className='p-1 xl:p-2 border rounded-lg' onChange={handleChange} />
               </div>
               <div className="flex flex-col lg:flex-row items-center gap-2">
-                <div className='flex-1 flex flex-col w-full my-2'>
-                  <label htmlFor="email" className='mb-1 text-lg font-bold'>Email*</label>
+                <div className='flex-1 flex flex-col w-full my-1'>
+                  <label htmlFor="email" className='text-sm 2xl:text-lg font-bold'>Email*</label>
                   <input type='email' name='email' value={inputs.email} placeholder='Email'
-                    className='p-2 border rounded-lg' onChange={handleChange} />
+                    className='p-1 xl:p-2 border rounded-lg' onChange={handleChange} />
                 </div>
                 <div className="flex-1 w-full relative">
-                  <div className='flex flex-col w-full my-2'>
-                    <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Telephone*</label>
+                  <div className='flex flex-col w-full my-1'>
+                    <label htmlFor="Telephone" className='text-sm 2xl:text-lg font-bold'>Telephone*</label>
                     <div className="flex items-center border rounded-lg">
-                      <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-2 cursor-pointer'>
+                      <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-1 xl:p-2 cursor-pointer'>
                         <p className=''>{Countries.find(option => option.dial_code === inputs.countryCode)?.dial_code}</p>
                       </div>
                       <input type='text' name='telephone' value={inputs.telephone} placeholder='0 7XX XXX XXX'
-                        className='p-2 border rounded-lg w-full' onChange={handleChange} />
+                        className='p-1 2xl:p-2 border rounded-lg w-full' onChange={handleChange} />
                     </div>
                   </div>
                   {toggleCountryCode &&
@@ -132,13 +132,13 @@ const RegistrationBusiness = () => {
               </div>
               <div className="flex flex-col lg:flex-row items-center gap-2">
                 <div className="flex-1 w-full relative">
-                  <div className='flex flex-col w-full my-2'>
-                    <label htmlFor="Telephone" className='mb-1 text-sm md:text-lg font-bold'>Nationality*</label>
+                  <div className='flex flex-col w-full my-1'>
+                    <label htmlFor="Telephone" className='text-sm 2xl:text-lg font-bold'>Nationality*</label>
                     <div className="flex items-center border rounded-lg" onClick={() => setToggleCountry(!toggleCountry)}>
-                      <div className='p-2 cursor-pointer'>
+                      <div className='p-1 2xl:p-2 cursor-pointer'>
                         <p className='w-6 h-4'>{Countries.find(option => option.code === inputs.nationality)?.flag}</p>
                       </div>
-                      <p className='p-2 border rounded-lg w-full'>{Countries.find(option => option.code === inputs.nationality)?.name}</p>
+                      <p className='p-1 2xl:p-2 border rounded-lg w-full'>{Countries.find(option => option.code === inputs.nationality)?.name}</p>
                     </div>
                   </div>
                   {toggleCountry &&
@@ -150,41 +150,41 @@ const RegistrationBusiness = () => {
                       </ul>
                     </div>}
                 </div>
-                <div className='flex-1 flex flex-col w-full my-2'>
-                  <label htmlFor="email" className='mb-1 text-lg font-bold'>Tin Number*</label>
+                <div className='flex-1 flex flex-col w-full my-1'>
+                  <label htmlFor="email" className='text-sm 2xl:text-lg font-bold'>Tin Number*</label>
                   <input type='text' name='indentitication' value={inputs.email} placeholder='Number'
-                    className='p-2 border rounded-lg' onChange={handleChange} />
+                    className='p-1 2xl:p-2 border rounded-lg' onChange={handleChange} />
                 </div>
               </div>
               <div className="flex flex-col lg:flex-row items-center gap-2">
-                <div className='flex flex-col w-full my-2'>
-                  <label htmlFor="password" className='mb-1 text-sm md:text-lg font-bold'>Password*</label>
+                <div className='flex flex-col w-full my-1'>
+                  <label htmlFor="password" className='text-sm 2xl:text-lg font-bold'>Password*</label>
                   <div className="flex items-center border rounded-lg">
                     <input type={passwordType} name='password' value={inputs.password} placeholder='Password'
-                      className='p-2 w-full rounded-lg' onChange={handleChange} />
+                      className='p-1 2xl:p-2 w-full rounded-lg' onChange={handleChange} />
                     <div onClick={togglePassword} className='p-2 cursor-pointer' data-testid='toggle-password-button'>
                       {passwordType !== 'text' ? <img src={eye} alt='eye-Icon' /> : <img src={eyeCrossed} alt='eyeCrossed-Icon' />}
                     </div>
                   </div>
                 </div>
-                <div className='flex flex-col w-full my-2'>
-                  <label htmlFor="confirmPassword" className='mb-1 text-sm md:text-lg font-bold'>Confirm Password*</label>
+                <div className='flex flex-col w-full my-1'>
+                  <label htmlFor="confirmPassword" className='text-sm 2xl:text-lg font-bold'>Confirm Password*</label>
                   <div className="flex items-center border rounded-lg">
                     <input type={confirmPasswordType} name='confirmPassword' value={inputs.password} placeholder='Password'
-                      className='p-2 w-full rounded-lg' onChange={handleChange} />
+                      className='p-1 2xl:p-2 w-full rounded-lg' onChange={handleChange} />
                     <div onClick={toggleConfirmPassword} className='p-2 cursor-pointer' data-testid='toggle-password-button'>
                       {confirmPasswordType !== 'text' ? <img src={eye} alt='eye-Icon' /> : <img src={eyeCrossed} alt='eyeCrossed-Icon' />}
                     </div>
                   </div>
                 </div>
               </div>
-              <div className='flex flex-col w-full my-2'>
-                <label htmlFor="address" className='mb-1 text-lg font-bold'>Address*</label>
+              <div className='flex flex-col w-full my-1'>
+                <label htmlFor="address" className='text-sm 2xl:text-lg font-bold'>Address*</label>
                 <input type='text' name='address' value={inputs.telephone} placeholder='Address'
-                  className='p-2 border rounded-lg' onChange={handleChange} />
+                  className='p-1 2xl:p-2 border rounded-lg' onChange={handleChange} />
               </div>
             </div>
-            <div className='my-2'>
+            <div className='my-1'>
               <input type="checkbox" className='mr-1 accent-main cursor-pointer' checked={inputs.isTermsAgreed} required onClick={handleTermsAndConditions} />
               <label htmlFor="agreeTerms">
               I agree to the

@@ -41,7 +41,7 @@ const Products = () => {
 </div>
 
   return (
-    <div className='flex items-center justify-center gap-4 flex-wrap mt-8'>
+    <div className='flex items-center justify-center gap-4 flex-wrap mt-8 px-4 lg:px-24'>
     {prods ? prods?.products.map(prod => 
       <div key={prod.merchantProductId} className="w-[250px] h-[250px] shadow-xl rounded-xl border border-main-dark">
         <div className="h-3/4 relative">
