@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 import { apiRequest } from "../Redux/ApiCalls"
-import SavingModal from "../Components/SavingModal"
+import PaymentMethods from "../Components/PaymentMethods"
 import Loading from "../Components/Loading"
 import insurance from '../Assets/Images/insurance.jpg'
 import furniture from '../Assets/Images/furniture.jpg'
@@ -11,7 +11,7 @@ const Products = () => {
   const { merchantId } = useParams()
   const [merchants, setMerchants] = useState([])
   const [isLoading, setIsLoading] = useState(false)
-  const [productId, setProductId] = useState('')
+  const [productId, setProductId] = useState("")
 
   const prods = merchants.find(merchant => merchant.productId === merchantId)?.merchants[0]
 
@@ -66,10 +66,9 @@ const Products = () => {
       <p className="text-2xl font-bold text-main-dark">No Product found</p>
     </div>}
     {productId &&
-      <SavingModal
-        product={prods?.products.find(prod => prod.merchantProductId === productId)}
-        merchant={prods}
+      <PaymentMethods
         onClose={closeSavingModal}
+        productId={productId}
       />
     }
   </div>

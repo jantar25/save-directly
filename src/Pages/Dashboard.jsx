@@ -1,15 +1,21 @@
 import { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { Carousel } from 'react-responsive-carousel'
+import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 import { apiRequest } from '../Redux/ApiCalls'
-import { processes, workingProcesses } from '../Constants/process'
 import Loading from '../Components/Loading'
+import PaymentMethods from '../Components/PaymentMethods'
 import danubeLogo from '../Assets/Images/danube.png'
 import radiantLogo from '../Assets/Images/radiant.jpeg'
+import wallet from '../Assets/Images/wallet.png'
+
 
 const Dashboard = () => {
-  const [balance, setBalance] = useState(0)
+  const [togglePaymentMode, setTogglePaymentMode] = useState('')
+  const [balance, setBalance] = useState([])
+  const [totalBalance, setTotalBalance] = useState(0)
   const [merchants, setMerchants] = useState([])
   const [allMerchants, setAllMerchants] = useState([])
   const [isLoading, setIsLoading] = useState(false)
@@ -19,7 +25,8 @@ const Dashboard = () => {
     try {
       const response = await apiRequest.get('/inquiry/balance')
       if(response.data.status === 200){
-        setBalance(response.data.total)
+        setBalance(response.data.data)
+        setTotalBalance(response.data.total)
       }
     } catch (error) {
       console.log(error)
@@ -71,33 +78,41 @@ const Dashboard = () => {
 
   return (
     <div>
-      <div className="bg-main py-8 flex flex-col items-center justify-center gap-8">
-        <h1 className='text-4xl font-bold'>Save Now, Buy Later</h1>
-        <p className="text-center text-lg w-full md:w-1/2 xl:w-1/4">
-          A new way of getting <span className="font-bold">paid to save</span>. Earn instant
-          rewards on every deposit you make.
-        </p>
-        <div className="flex items-center justify-center flex-wrap gap-8 -mb-16">
-          {processes.map(process => 
-            <div key={process.id} className="w-[400px] flex flex-col items-center justify-center shadow-2xl rounded-xl bg-main-dark text-black gap-4">
-              <div className="w-[400px] p-8 flex flex-col items-center justify-center shadow-2xl rounded-xl bg-white text-black gap-4 -mr-6 mb-4">
-                <img src={process.icon} alt="process Icon" className="w-12 h-12" />
-                <h3 className='font-bold text-xl text-center text-main-dark'>{process.title}</h3>
-                <p className="text-gray-500 text-center">{process.description}</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
       <div className="px-4 lg:px-24 pt-12">
-        <div className="flex items-center flex-col md:flex-row md:justify-between my-4">
+        <div className="flex items-center flex-col md:flex-row md:justify-between mt-4">
           <h1 className="font-bold text-3xl mb-4">Welcom <span className="text-main">{currentUser.customerNames}</span>!</h1>
-          <div className="flex items-center text-xl lg:text-3xl font-bold text-main-dark shadow-lg rounded-lg p-4 bg-gray-200">
-            Total Bal: 
-            <p>
-              {balance}
-              <span className='ml-2'>Frw</span>
-            </p>
+        </div>
+        <div className="w-300 sm:w-[400px] h-300 sm:h-[400px] rounded-full bg-gradient mx-auto my-8">
+          <div className="relative w-1/3 h-1/3 mx-auto">
+            <img src={wallet} alt="wallet" className="w-full h-full" />
+            <div className="inline-block absolute -top-8 -right-16 text-white bg-main px-4 py-2 rounded-full text-xl font-bold">
+              {totalBalance} Frw
+            </div>
+          </div>
+          <div className="h-48 w-full sm:w-3/4 mx-auto rounded-xl shadow-2xl">
+            <Carousel autoPlay infiniteLoop interval={3000} renderIndicator={false} showThumbs={false} className='rounded-xl'>
+              {balance.map((bal, index)=> 
+                <div key={index} className="h-full bg-white rounded-xl">
+                  <div className="bg-gray-100 p-2 rounded-t-xl">
+                    <p className="text-center font-bold text-main-dark">Save</p>
+                  </div>
+                  <div className="px-4 py-2">
+                    <p className="text-xl font-bold text-center mb-2">
+                      {bal.productCategoryName} from
+                      <span className="text-main ml-1">{bal.merchantName}</span>
+                    </p>
+                    <div className="flex items-center justify-between">
+                      <p className="text-md">{bal.productName}</p>
+                      <p className="text-md font-bold">{bal.balance} Frw</p>
+                    </div>
+                    <hr className="my-4" />
+                    <button className="w-full bg-main-dark py-2 px-4 font-bold text-white rounded-full" onClick={() => setTogglePaymentMode(bal.productName)}>
+                      Save more
+                    </button>
+                  </div>
+                </div>
+              )}
+            </Carousel>
           </div>
         </div>
         <div className="my-8">
@@ -148,19 +163,12 @@ const Dashboard = () => {
           }
         </div>
       </div>
-      <div className="bg-main py-8 flex flex-col items-center justify-center gap-8">
-        <h3 className="text-3xl font-bold">How it works</h3>
-        <div className="flex items-center justify-center flex-wrap gap-8">
-          {workingProcesses.map(process => 
-            <div key={process.id} className="w-[300px] flex flex-col items-center justify-center shadow-2xl rounded-xl bg-main-dark text-black gap-4">
-              <div className="w-[300px] p-8 flex flex-col items-center justify-center shadow-2xl rounded-xl bg-white text-black gap-4 -mr-6 mb-4">
-                <img src={process.icon} alt="process Icon" className="w-12 h-12" />
-                <p className="text-gray-500 text-center">{process.description}</p>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      {togglePaymentMode &&
+        <PaymentMethods
+          onClose={() => setTogglePaymentMode('')}
+          productId={togglePaymentMode}
+        />
+      }
     </div>
   )
 }
