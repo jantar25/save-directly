@@ -3,6 +3,7 @@ import { Base64 } from 'js-base64'
 import AuthService from '../Services/AuthService'
 import { userLoginStart,userLoginSuccess,userLoginFailure,userLogoutSuccess,updateUserProfileStart,
   updateUserProfileSuccess,updateUserProfileFailure } from './currentUserRedux'
+  import { getMerchantResultsStart, getMerchantResultsSuccess, getMerchantResultsFailure } from './merchantsRedux'
 
 const baseURL = import.meta.env.VITE_API_URL
 
@@ -101,6 +102,25 @@ export const updateUserProfile = async (id,dispatch,fieldToUpdate,updatedUser) =
     setTimeout(() => {
       dispatch(updateUserProfileFailure(null))
     }, 5000)
+  }
+}
+
+export const getMerchants = async (dispatch) => {
+  dispatch(getMerchantResultsStart())
+  try {
+    const res = await apiRequest.get('/product/list', { timeout: 30000 })
+    console.log(res)
+    if (res.data.status === 200) {
+      dispatch(
+        getMerchantResultsSuccess(res.data.data)
+      )
+    } else {
+      dispatch(
+        getMerchantResultsFailure({ type: 'error', message: res.data.message }),
+      )
+    }
+  } catch (error) {
+    dispatch(getMerchantResultsFailure({ type: null, message: '' }))
   }
 }
 

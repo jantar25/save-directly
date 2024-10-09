@@ -1,10 +1,10 @@
 import { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
-import { apiRequest } from '../Redux/ApiCalls'
+import { apiRequest, getMerchants } from '../Redux/ApiCalls'
 import Loading from '../Components/Loading'
 import PaymentMethods from '../Components/PaymentMethods'
 import danubeLogo from '../Assets/Images/danube.png'
@@ -13,13 +13,14 @@ import wallet from '../Assets/Images/wallet.png'
 
 
 const Dashboard = () => {
+  const dispatch = useDispatch()
   const [togglePaymentMode, setTogglePaymentMode] = useState('')
   const [balance, setBalance] = useState([])
   const [totalBalance, setTotalBalance] = useState(0)
-  const [merchants, setMerchants] = useState([])
-  const [allMerchants, setAllMerchants] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
-  const {currentUser } = useSelector(state => state.currentUser)
+  const { currentUser } = useSelector(state => state.currentUser)
+  const allMerchants = useSelector(state => state.merchants)
+  const { data, isFetching } = allMerchants
+  const [merchants, setMerchants] = useState(data)
 
   const getBalance = async () => {
     try {
@@ -33,45 +34,33 @@ const Dashboard = () => {
     }
   }
 
-  const getMerchants = async () => {
-    setIsLoading(true)
-    try {
-      const response = await apiRequest.get('/product/list')
-      setMerchants(response.data.data)
-      setAllMerchants(response.data.data)
-      setIsLoading(false)
-    } catch (error) {
-      console.log(error)
-      setIsLoading(false)
-    }
-  }
 
   const filterByMerchant = (e) => {
     const merchantId = e.target.value
     if(merchantId){
-      const filteredMerchants = allMerchants.filter(merchant => merchant.productId === merchantId)
+      const filteredMerchants = data.filter(merchant => merchant.productId === merchantId)
       setMerchants(filteredMerchants)
     }else{
-      setMerchants(allMerchants)
+      setMerchants(data)
     }
   }
 
   const searchMerchant = (e) => {
     const searchValue = e.target.value
     if(searchValue){
-      const searchedMerchants = allMerchants.filter(merchant => merchant.merchants[0]?.merchantName.toLowerCase().includes(searchValue.toLowerCase()))
+      const searchedMerchants = data.filter(merchant => merchant.merchants[0]?.merchantName.toLowerCase().includes(searchValue.toLowerCase()))
       setMerchants(searchedMerchants)
     }else{
-      setMerchants(allMerchants)
+      setMerchants(data)
     }
   }
 
   useEffect(() => {
     getBalance()
-    getMerchants()
+    getMerchants(dispatch)
   }, [])
 
-  if(isLoading) return <div className="mt-32">
+  if(isFetching) return <div className="mt-32">
     <h1 className="text-3xl text-main-dark font-bold text-center">Loading</h1>
     <Loading />
   </div>
@@ -80,7 +69,7 @@ const Dashboard = () => {
     <div>
       <div className="px-4 lg:px-24 pt-12">
         <div className="flex items-center flex-col md:flex-row md:justify-between mt-4">
-          <h1 className="font-bold text-3xl mb-4">Welcom <span className="text-main">{currentUser.customerNames}</span>!</h1>
+          <h1 className="font-bold text-3xl mb-4">Welcom <span className="text-main">{currentUser?.customerNames}</span>!</h1>
         </div>
         <div className="w-300 sm:w-[400px] h-300 sm:h-[400px] rounded-full bg-gradient mx-auto my-8">
           <div className="relative w-1/3 h-1/3 mx-auto">
@@ -126,7 +115,7 @@ const Dashboard = () => {
             <div className='w-full flex-1'>
               <select className="w-full border border-gray-500 px-4 py-3 rounded-2xl" onChange={filterByMerchant}>
                 <option value="">SORT BY</option>
-                {allMerchants.map(merchant =>
+                {data.map(merchant =>
                   <option key={merchant.productId} value={merchant.productId}>{merchant.merchants[0]?.merchantName}</option>
                 )}
               </select>

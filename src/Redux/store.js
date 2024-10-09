@@ -12,6 +12,7 @@ import {
 } from 'redux-persist'
 
 import currentUserRedux from './currentUserRedux'
+import merchantsRedux from './merchantsRedux'
 
 const persistConfig = {
   key: 'root',
@@ -19,7 +20,7 @@ const persistConfig = {
   storage,
 }
 
-const rootReducer = combineReducers({ currentUser:currentUserRedux })
+const rootReducer = combineReducers({ currentUser:currentUserRedux, merchants: merchantsRedux })
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({

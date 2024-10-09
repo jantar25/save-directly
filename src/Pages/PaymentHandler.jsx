@@ -17,6 +17,7 @@ const PaymentHandler = () => {
   const [merchants, setMerchants] = useState([])
 
   const prods = merchants.find(merchant => merchant.productId === productId)?.merchants[0]
+  console.log(merchants.find(merchant => merchant.productId === productId))
 
   const getMerchants = async () => {
     setIsLoading(true)
@@ -79,7 +80,7 @@ const PaymentHandler = () => {
           </label>
         </div>
         <button
-          onClick={()=> setTogglePaymentMode(true)}
+          onClick={()=> setTogglePaymentMode(productId)}
           className={`flex items-center justify-center bg-main-dark px-8 py-4 mb-4 mt-8 text-md text-yellow-extended
           ${!isTermsAgreed ? 'opacity-70 cursor-not-allowed' : 'hover:bg-main-hover'} rounded-lg font-semibold shadow-sm`}
           disabled={!isTermsAgreed}
@@ -92,9 +93,9 @@ const PaymentHandler = () => {
       )}
       {togglePaymentMode &&
         <SavingModal
-        product={prods?.products.find(prod => prod.merchantProductId === togglePaymentMode)}
-        merchant={prods}
-        onClose={closeSavingModal}
+          product={prods?.products.find(prod => prod.merchantProductId === togglePaymentMode)}
+          merchant={prods}
+          onClose={closeSavingModal}
       />
     }
     </div>
