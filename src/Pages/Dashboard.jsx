@@ -46,7 +46,7 @@ const Dashboard = () => {
     getMerchants(dispatch)
   }, [])
 
-  if(isFetching) return <div className="mt-32">
+  if(isFetching) return <div className="mt-32 overflow-hidden">
     <h1 className="text-3xl text-main-dark font-bold text-center">Loading</h1>
     <Loading />
   </div>
@@ -121,7 +121,7 @@ const Dashboard = () => {
                     className='w-full h-full object-cover rounded-t-xl border-b-8 border-main-dark'
                   />
                   <button className="absolute px-6 py-2 text-xl bg-main-dark hover:bg-main-hover text-white font-bold rounded-full right-8 -bottom-4">
-                    <Link to={`/products/${merchant.productId}`}>Explore</Link>
+                    <Link to={`/products/${merchant.productId}/${merchant.merchants[0]?.merchantId}`}>Explore</Link>
                   </button>
                 </div>
                 <div className="h-1/4 w-full flex flex-col items-center justify-center">
@@ -142,6 +142,8 @@ const Dashboard = () => {
         <PaymentMethods
           onClose={() => setTogglePaymentMode('')}
           productId={togglePaymentMode}
+          merchantId={'test'}
+          categoryId={'test'}
         />
       }
     </div>

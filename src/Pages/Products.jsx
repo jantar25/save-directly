@@ -1,58 +1,39 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 
-import { apiRequest } from "../Redux/ApiCalls"
 import PaymentMethods from "../Components/PaymentMethods"
-import Loading from "../Components/Loading"
 import insurance from '../Assets/Images/insurance.jpg'
 import furniture from '../Assets/Images/furniture.jpg'
 
 const Products = () => {
-  const { merchantId } = useParams()
-  const [merchants, setMerchants] = useState([])
-  const [isLoading, setIsLoading] = useState(false)
+  const { categoryId, merchantId } = useParams()
   const [productId, setProductId] = useState("")
   const { balanceData } = useSelector(state => state.balances)
+  const { data } = useSelector(state => state.merchants)
 
+  const selectedCategoryProducts = data.find(category => category.productId === categoryId)
+  const selectedMerchantProducts = selectedCategoryProducts?.merchants.find(merchant => merchant.merchantId === merchantId)
 
-  const prods = merchants.find(merchant => merchant.productId === merchantId)?.merchants[0]
-
-  const getMerchants = async () => {
-    setIsLoading(true)
-    try {
-      const response = await apiRequest.get('/product/list')
-      setMerchants(response.data.data)
-      setIsLoading(false)
-    } catch (error) {
-      console.log(error)
-      setIsLoading(false)
-    }
-  }
+  const savingBalanceMap = balanceData.reduce((acc, { productName, balance }) => {
+    acc[productName] = balance;
+    return acc;
+  }, {})
 
   const closeSavingModal = () => {
     setProductId("")
   }
 
-  useEffect(() => {
-    getMerchants()
-  }, [])
-
-  if(isLoading) return <div className="mt-32">
-  <h1 className="text-3xl text-main-dark font-bold text-center">Loading</h1>
-  <Loading />
-</div>
-
   return (
     <div className='flex items-center justify-center gap-4 flex-wrap mt-8 px-4 lg:px-24'>
-    {prods ? prods?.products.map(prod => {
-      const savingBalance = balanceData[prod.merchantProductId]
-      console.log(savingBalance)
+    {selectedMerchantProducts ? selectedMerchantProducts?.products.map(prod => {
+      const savingBalance = savingBalanceMap[prod.merchantProductName]
+
       return (
       <div key={prod.merchantProductId} className="w-[250px] h-[250px] shadow-xl rounded-xl border border-main-dark">
         <div className="h-3/4 relative">
           <img
-            src={prods.merchantName === "RADIANT"? insurance : furniture}
+            src={selectedMerchantProducts.merchantName === "RADIANT"? insurance : furniture}
             alt="compagnie's logo"
             className='w-full h-full object-cover rounded-t-xl border-b-8 border-main-dark'
           />
@@ -61,11 +42,12 @@ const Products = () => {
               setProductId(prod.merchantProductId)
             }}
             className="absolute px-6 py-2 text-md bg-main-dark text-white font-bold rounded-full right-4 -bottom-4 hover:bg-main-hover">
-            Start Saving
+            {savingBalance? 'Save More' : 'Start Saving'}
           </button>
         </div>
-        <div className="h-1/4 w-full flex items-center justify-center px-2">
+        <div className="h-1/4 w-full flex items-center justify-between px-2">
           <p className="text-xl text-main-dark font-bold text-center">{prod.merchantProductName}</p>
+          {savingBalance && <p className="text-lg font-bold text-main">{savingBalance} Frw</p>}
         </div>
       </div>
       )
@@ -76,6 +58,8 @@ const Products = () => {
     {productId &&
       <PaymentMethods
         onClose={closeSavingModal}
+        categoryId={categoryId}
+        merchantId={merchantId}
         productId={productId}
       />
     }

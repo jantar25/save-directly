@@ -1,48 +1,28 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { useParams, Link } from "react-router-dom"
-import methods from "../Constants/paymentMethods"
+import { useSelector } from "react-redux"
 
+import methods from "../Constants/paymentMethods"
 import SavingModal from "../Components/SavingModal"
-import Loading from "../Components/Loading"
-import { apiRequest } from '../Redux/ApiCalls'
 import momo from '../Assets/Images/momo.jpg'
 import airtel_money from '../Assets/Images/airtel_money.jpg'
 
 const PaymentHandler = () => {
-  const { paymentId, productId } = useParams()
+  const { categoryId, merchantId, paymentId, productId } = useParams()
   const method = methods.find(method => method.id === paymentId)
   const [isTermsAgreed, setIsTermsAgreed] = useState(false)
   const [togglePaymentMode, setTogglePaymentMode] = useState('')
-  const [isLoading, setIsLoading] = useState(false)
-  const [merchants, setMerchants] = useState([])
+  const { data } = useSelector(state => state.merchants)
 
-  const prods = merchants.find(merchant => merchant.productId === productId)?.merchants[0]
-  console.log(merchants.find(merchant => merchant.productId === productId))
+  const selectedCategoryProducts = data.find(category => category.productId === categoryId)
+  const selectedMerchantProducts = selectedCategoryProducts?.merchants.find(merchant => merchant.merchantId === merchantId)
 
-  const getMerchants = async () => {
-    setIsLoading(true)
-    try {
-      const response = await apiRequest.get('/product/list')
-      setMerchants(response.data.data)
-      setIsLoading(false)
-    } catch (error) {
-      console.log(error)
-      setIsLoading(false)
-    }
-  }
+  console.log(selectedMerchantProducts)
+
 
   const closeSavingModal = () => {
     setTogglePaymentMode("")
   }
-
-  useEffect(() => {
-    getMerchants()
-  }, [])
-
-  if(isLoading) return <div className="mt-32">
-  <h1 className="text-3xl text-main-dark font-bold text-center">Loading</h1>
-  <Loading />
-</div>
 
   return (
     <div className="my-8 px-4 lg:px-24">
@@ -93,8 +73,8 @@ const PaymentHandler = () => {
       )}
       {togglePaymentMode &&
         <SavingModal
-          product={prods?.products.find(prod => prod.merchantProductId === togglePaymentMode)}
-          merchant={prods}
+          product={selectedMerchantProducts?.products.find(prod => prod.merchantProductId === togglePaymentMode)}
+          merchant={selectedMerchantProducts}
           onClose={closeSavingModal}
       />
     }

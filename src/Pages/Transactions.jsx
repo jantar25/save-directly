@@ -42,7 +42,7 @@ const Transactions = () => {
     getTransactions()
   }, [])
 
-  if(isLoading) return <div className="mt-32">
+  if(isLoading) return <div className="mt-32 overflow-hidden">
   <h1 className="text-3xl text-main-dark font-bold text-center">Loading</h1>
   <Loading />
 </div>

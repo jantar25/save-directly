@@ -16,11 +16,11 @@ const MyRoutes = () => {
       <Routes>
         <Route path='/dashboard' element={<Dashboard />} />
         <Route path='/profile' element={<Profile />} />
-        <Route path='/products/:merchantId' element={<Products />} />
+        <Route path='/products/:categoryId/:merchantId' element={<Products />} />
         <Route path='/transactions' element={<Transactions />} />
         <Route path='/savings' element={<MySavings />} />
         <Route path='/wallet' element={<MyWallet />} />
-        <Route path='/products/:productId/payment/:paymentId' element={<PaymentHandler />} />
+        <Route path='/products/:categoryId/:merchantId/:productId/payment/:paymentId' element={<PaymentHandler />} />
         <Route path='/payment-request' element={<PaymentRequest />} />
       </Routes>
     </div>
