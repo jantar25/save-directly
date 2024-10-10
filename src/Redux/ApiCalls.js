@@ -3,10 +3,12 @@ import { Base64 } from 'js-base64'
 import AuthService from '../Services/AuthService'
 import { userLoginStart,userLoginSuccess,userLoginFailure,userLogoutSuccess,updateUserProfileStart,
   updateUserProfileSuccess,updateUserProfileFailure } from './currentUserRedux'
-  import { getMerchantResultsStart, getMerchantResultsSuccess, getMerchantResultsFailure } from './merchantsRedux'
+import { getMerchantResultsStart, getMerchantResultsSuccess, getMerchantResultsFailure } from './merchantsRedux'
+import { getBalanceStart, getBalanceSuccess, getBalanceFailure } from './balanceRedux'
+import { getMerchantMainDataSuccess, getMerchantMainDataFailure } from './merchantsMainDataRedux'
+
 
 const baseURL = import.meta.env.VITE_API_URL
-
 export const apiRequest = axios.create({ baseURL:baseURL })
 apiRequest.interceptors.request.use((config) => {
   const token = AuthService.getToken()
@@ -109,18 +111,37 @@ export const getMerchants = async (dispatch) => {
   dispatch(getMerchantResultsStart())
   try {
     const res = await apiRequest.get('/product/list', { timeout: 30000 })
-    console.log(res)
     if (res.data.status === 200) {
       dispatch(
         getMerchantResultsSuccess(res.data.data)
+      )
+      dispatch(
+        getMerchantMainDataSuccess(res.data.data)
       )
     } else {
       dispatch(
         getMerchantResultsFailure({ type: 'error', message: res.data.message }),
       )
+      dispatch(
+        getMerchantMainDataFailure(),
+      )
     }
   } catch (error) {
     dispatch(getMerchantResultsFailure({ type: null, message: '' }))
+  }
+}
+
+export const getBalance = async (dispatch) => {
+  dispatch(getBalanceStart())
+  try {
+    const res = await apiRequest.get('/inquiry/balance', { timeout: 30000 })
+    if (res.data.status === 200) {
+      dispatch(getBalanceSuccess(res.data))
+    } else {
+      dispatch(getBalanceFailure())
+    }
+  } catch (error) {
+    dispatch(getBalanceFailure())
   }
 }
 

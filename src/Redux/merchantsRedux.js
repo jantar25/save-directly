@@ -7,7 +7,7 @@ const initialState = {
 }
 
 const merchantsResultsSlice = createSlice({
-  name: 'searchResults',
+  name: 'merchants',
   initialState,
   reducers: {
     // GET ALL RESULTS

@@ -13,6 +13,8 @@ import {
 
 import currentUserRedux from './currentUserRedux'
 import merchantsRedux from './merchantsRedux'
+import balanceRedux from './balanceRedux'
+import merchantsMainDataRedux from './merchantsMainDataRedux'
 
 const persistConfig = {
   key: 'root',
@@ -20,7 +22,12 @@ const persistConfig = {
   storage,
 }
 
-const rootReducer = combineReducers({ currentUser:currentUserRedux, merchants: merchantsRedux })
+const rootReducer = combineReducers({
+  currentUser:currentUserRedux,
+  merchants: merchantsRedux,
+  balances: balanceRedux,
+  merchantsMainData: merchantsMainDataRedux
+})
 const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 export const store = configureStore({
@@ -32,4 +39,4 @@ export const store = configureStore({
       }
     })
 })
-export let persistor = persistStore(store)
+export const persistor = persistStore(store)

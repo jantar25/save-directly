@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
+import { useSelector } from "react-redux"
 
 import { apiRequest } from "../Redux/ApiCalls"
 import PaymentMethods from "../Components/PaymentMethods"
@@ -12,6 +13,8 @@ const Products = () => {
   const [merchants, setMerchants] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [productId, setProductId] = useState("")
+  const { balanceData } = useSelector(state => state.balances)
+
 
   const prods = merchants.find(merchant => merchant.productId === merchantId)?.merchants[0]
 
@@ -42,7 +45,10 @@ const Products = () => {
 
   return (
     <div className='flex items-center justify-center gap-4 flex-wrap mt-8 px-4 lg:px-24'>
-    {prods ? prods?.products.map(prod => 
+    {prods ? prods?.products.map(prod => {
+      const savingBalance = balanceData[prod.merchantProductId]
+      console.log(savingBalance)
+      return (
       <div key={prod.merchantProductId} className="w-[250px] h-[250px] shadow-xl rounded-xl border border-main-dark">
         <div className="h-3/4 relative">
           <img
@@ -62,6 +68,8 @@ const Products = () => {
           <p className="text-xl text-main-dark font-bold text-center">{prod.merchantProductName}</p>
         </div>
       </div>
+      )
+    }
     ) : <div className="flex items-center justify-center h-96">
       <p className="text-2xl font-bold text-main-dark">No Product found</p>
     </div>}

@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom'
 import { Carousel } from 'react-responsive-carousel'
 import "react-responsive-carousel/lib/styles/carousel.min.css"
 
-import { apiRequest, getMerchants } from '../Redux/ApiCalls'
+import { setMarchantsResults } from '../Redux/merchantsMainDataRedux'
+import { getMerchants, getBalance } from '../Redux/ApiCalls'
 import Loading from '../Components/Loading'
 import PaymentMethods from '../Components/PaymentMethods'
 import danubeLogo from '../Assets/Images/danube.png'
@@ -15,33 +16,18 @@ import wallet from '../Assets/Images/wallet.png'
 const Dashboard = () => {
   const dispatch = useDispatch()
   const [togglePaymentMode, setTogglePaymentMode] = useState('')
-  const [balance, setBalance] = useState([])
-  const [totalBalance, setTotalBalance] = useState(0)
   const { currentUser } = useSelector(state => state.currentUser)
-  const allMerchants = useSelector(state => state.merchants)
-  const { data, isFetching } = allMerchants
-  const [merchants, setMerchants] = useState(data)
-
-  const getBalance = async () => {
-    try {
-      const response = await apiRequest.get('/inquiry/balance')
-      if(response.data.status === 200){
-        setBalance(response.data.data)
-        setTotalBalance(response.data.total)
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
-
+  const { balanceData, total } = useSelector(state => state.balances)
+  const { data, isFetching } = useSelector(state => state.merchants)
+  const { mainData } = useSelector(state => state.merchantsMainData)
 
   const filterByMerchant = (e) => {
     const merchantId = e.target.value
     if(merchantId){
       const filteredMerchants = data.filter(merchant => merchant.productId === merchantId)
-      setMerchants(filteredMerchants)
+      dispatch(setMarchantsResults(filteredMerchants))
     }else{
-      setMerchants(data)
+      dispatch(setMarchantsResults(data))
     }
   }
 
@@ -49,14 +35,14 @@ const Dashboard = () => {
     const searchValue = e.target.value
     if(searchValue){
       const searchedMerchants = data.filter(merchant => merchant.merchants[0]?.merchantName.toLowerCase().includes(searchValue.toLowerCase()))
-      setMerchants(searchedMerchants)
+      dispatch(setMarchantsResults(searchedMerchants))
     }else{
-      setMerchants(data)
+      dispatch(setMarchantsResults(data))
     }
   }
 
   useEffect(() => {
-    getBalance()
+    getBalance(dispatch)
     getMerchants(dispatch)
   }, [])
 
@@ -75,12 +61,12 @@ const Dashboard = () => {
           <div className="relative w-1/3 h-1/3 mx-auto">
             <img src={wallet} alt="wallet" className="w-full h-full" />
             <div className="inline-block absolute -top-8 -right-16 text-white bg-main px-4 py-2 rounded-full text-xl font-bold">
-              {totalBalance} Frw
+              {total} Frw
             </div>
           </div>
           <div className="h-48 w-full sm:w-3/4 mx-auto rounded-xl shadow-2xl">
             <Carousel autoPlay infiniteLoop interval={3000} renderIndicator={false} showThumbs={false} className='rounded-xl'>
-              {balance.map((bal, index)=> 
+              {balanceData?.map((bal, index)=> 
                 <div key={index} className="h-full bg-white rounded-xl">
                   <div className="bg-gray-100 p-2 rounded-t-xl">
                     <p className="text-center font-bold text-main-dark">Save</p>
@@ -121,12 +107,12 @@ const Dashboard = () => {
               </select>
             </div>
           </div>
-          {merchants.length === 0 ?
+          {mainData.length === 0 ?
             <div className="flex items-center justify-center h-96">
               <p className="text-2xl font-bold text-main-dark">No merchant found</p>
             </div>:
           <div className='flex items-center justify-center gap-8 flex-wrap mb-4'>
-            {merchants.map(merchant => 
+            {mainData.map(merchant => 
               <div key={merchant.productId} className="w-[350px] h-[400px] shadow-xl rounded-xl border border-main-dark">
                 <div className="h-3/4 relative">
                   <img
