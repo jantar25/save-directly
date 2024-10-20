@@ -6,10 +6,10 @@ import "react-responsive-carousel/lib/styles/carousel.min.css"
 
 import { setMarchantsResults } from '../Redux/merchantsMainDataRedux'
 import { getMerchants, getBalance } from '../Redux/ApiCalls'
+import marchantLogos from '../Constants/logos'
 import Loading from '../Components/Loading'
 import PaymentMethods from '../Components/PaymentMethods'
-import danubeLogo from '../Assets/Images/danube.png'
-import radiantLogo from '../Assets/Images/radiant.jpeg'
+import defaultLogo from '../Assets/Images/logo.png'
 import wallet from '../Assets/Images/wallet.png'
 
 
@@ -116,9 +116,9 @@ const Dashboard = () => {
               <div key={merchant.productId} className="w-[350px] h-[400px] shadow-xl rounded-xl border border-main-dark">
                 <div className="h-3/4 relative">
                   <img
-                    src={merchant.merchants[0]?.merchantName === "RADIANT"? radiantLogo : danubeLogo}
+                    src={marchantLogos[merchant.merchants[0]?.merchantName] || defaultLogo}
                     alt="compagnie's logo"
-                    className='w-full h-full object-cover rounded-t-xl border-b-8 border-main-dark'
+                    className='w-full h-full object-contain rounded-t-xl border-b-8 border-main-dark'
                   />
                   <button className="absolute px-6 py-2 text-xl bg-main-dark hover:bg-main-hover text-white font-bold rounded-full right-8 -bottom-4">
                     <Link to={`/products/${merchant.productId}/${merchant.merchants[0]?.merchantId}`}>Explore</Link>

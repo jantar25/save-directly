@@ -10,9 +10,18 @@ import { getMerchantMainDataSuccess, getMerchantMainDataFailure } from './mercha
 
 const baseURL = import.meta.env.VITE_API_URL
 export const apiRequest = axios.create({ baseURL:baseURL })
-apiRequest.interceptors.request.use((config) => {
+
+apiRequest.interceptors.request.use(async (config) => {
   const token = AuthService.getToken()
-  if (token) {
+  const isTokenExpired = AuthService.isTokenExpired()
+  if (token && isTokenExpired) {
+    // try {
+    //   const newToken = await refreshToken()
+    //   config.headers.Authorization = `Bearer ${newToken}`
+    // } catch (error) {
+    AuthService.removeToken()
+    window.location.href = '/'
+  } else if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
   return config

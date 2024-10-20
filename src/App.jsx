@@ -1,4 +1,9 @@
+import { useEffect } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
+
+import AuthService from './Services/AuthService'
+import { userLogout } from './Redux/currentUserRedux'
 import PrivateRoutes from './Routes/PrivateRoutes'
 import ProtectedRoutes from './Routes/ProtectedRoutes'
 
@@ -9,7 +14,14 @@ import Footer from "./Components/Footer"
 import Navbar from "./Components/Navbar"
 
 const App = () => {
+  const dispatch = useDispatch()
 
+  useEffect(() => {
+    if (AuthService.isTokenExpired()) {
+      userLogout(dispatch)
+    }
+  }, [])
+  
   return (
     <div className="font-Manrope">
       <Router>

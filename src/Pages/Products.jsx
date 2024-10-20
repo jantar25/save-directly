@@ -3,8 +3,7 @@ import { useParams } from "react-router-dom"
 import { useSelector } from "react-redux"
 
 import PaymentMethods from "../Components/PaymentMethods"
-import insurance from '../Assets/Images/insurance.jpg'
-import furniture from '../Assets/Images/furniture.jpg'
+import defaultLogo from '../Assets/Images/logo.png'
 
 const Products = () => {
   const { categoryId, merchantId } = useParams()
@@ -33,9 +32,9 @@ const Products = () => {
       <div key={prod.merchantProductId} className="w-[250px] h-[250px] shadow-xl rounded-xl border border-main-dark">
         <div className="h-3/4 relative">
           <img
-            src={selectedMerchantProducts.merchantName === "RADIANT"? insurance : furniture}
-            alt="compagnie's logo"
-            className='w-full h-full object-cover rounded-t-xl border-b-8 border-main-dark'
+            src={defaultLogo}
+            alt="product's logo"
+            className='w-full h-full object-contain rounded-t-xl border-b-8 border-main-dark'
           />
           <button
             onClick={() => {

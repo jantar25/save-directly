@@ -3,6 +3,7 @@ import { NavLink, Link, useNavigate } from 'react-router-dom'
 import { useSelector,useDispatch } from 'react-redux'
 
 import { navigations, accountNavigations } from '../Constants/navigations'
+import AuthService from '../Services/AuthService'
 import useClickOutside from '../Hooks/useClickOutside'
 import menuIcon from '../Assets/Icons/menu.svg'
 import logoutIcon from '../Assets/Icons/logout.svg'
@@ -23,6 +24,7 @@ const Navbar = () => {
   const dropDownProfilRef = useClickOutside(closeProfile)
 
   const navLinkActive = 'border-b-4 border-main ease-in duration-200'
+  const token = AuthService.getToken()
 
   const logOut = () => {
     userLogout(dispatch)
@@ -41,7 +43,7 @@ const Navbar = () => {
       </div>
 
       <div className='flex items-center justify-between gap-4'>
-        {!currentUser &&
+        {!token &&
           <div className='hidden lg:flex items-center justify-between'>
             {navigations.map((nav) => (
               <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? navLinkActive : ''}>
@@ -51,7 +53,7 @@ const Navbar = () => {
             }
           </div>
         }
-        {!currentUser?
+        {!token?
           <div className="flex items-center gap-1">
             <Link to='/auth/login/personal'>
               <button className='border border-2 border-main rounded-lg text-md md:text-xl font-bold px-4 py-1 text-main hover:text-orange-500'>Personal</button>
