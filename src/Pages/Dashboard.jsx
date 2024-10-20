@@ -15,7 +15,7 @@ import wallet from '../Assets/Images/wallet.png'
 
 const Dashboard = () => {
   const dispatch = useDispatch()
-  const [togglePaymentMode, setTogglePaymentMode] = useState('')
+  const [togglePaymentMode, setTogglePaymentMode] = useState(null)
   const { currentUser } = useSelector(state => state.currentUser)
   const { balanceData, total } = useSelector(state => state.balances)
   const { data, isFetching } = useSelector(state => state.merchants)
@@ -81,7 +81,7 @@ const Dashboard = () => {
                       <p className="text-md font-bold">{bal.balance} Frw</p>
                     </div>
                     <hr className="my-4" />
-                    <button className="w-full bg-main-dark py-2 px-4 font-bold text-white rounded-full" onClick={() => setTogglePaymentMode(bal.productName)}>
+                    <button className="w-full bg-main-dark py-2 px-4 font-bold text-white rounded-full" onClick={() => setTogglePaymentMode(bal)}>
                       Save more
                     </button>
                   </div>
@@ -140,10 +140,10 @@ const Dashboard = () => {
       </div>
       {togglePaymentMode &&
         <PaymentMethods
-          onClose={() => setTogglePaymentMode('')}
-          productId={togglePaymentMode}
-          merchantId={'test'}
-          categoryId={'test'}
+          onClose={() => setTogglePaymentMode(null)}
+          productId={togglePaymentMode.productId}
+          merchantId={togglePaymentMode.merchantId}
+          categoryId={togglePaymentMode.productCategoryId}
         />
       }
     </div>

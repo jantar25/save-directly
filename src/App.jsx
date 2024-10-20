@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 import AuthService from './Services/AuthService'
-import { userLogout } from './Redux/currentUserRedux'
+import { userLogout } from './Redux/ApiCalls'
 import PrivateRoutes from './Routes/PrivateRoutes'
 import ProtectedRoutes from './Routes/ProtectedRoutes'
 
