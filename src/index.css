@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-gradient {
+  background: hsla(218, 39%, 35%, 1);
+  background: linear-gradient(0deg, hsla(218, 39%, 35%, 1) 34%, hsla(219, 74%, 88%, 1) 79%);
+  background: -moz-linear-gradient(0deg, hsla(218, 39%, 35%, 1) 34%, hsla(219, 74%, 88%, 1) 79%);
+  background: -webkit-linear-gradient(0deg, hsla(218, 39%, 35%, 1) 34%, hsla(219, 74%, 88%, 1) 79%);
+}
