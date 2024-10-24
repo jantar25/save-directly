@@ -2,6 +2,8 @@
 import { useState } from "react";
 import AuthService from "../Services/AuthService";
 
+const OTP_LENGTH = 6;
+
 const OTPInput = ({
 	setError,
 	setToggleOTP,
@@ -9,11 +11,10 @@ const OTPInput = ({
 	title,
 	handleSubmit,
 }) => {
-	const OTPlength = 6;
-	const [otp, setOtp] = useState(new Array(OTPlength).fill(""));
+	const [otp, setOtp] = useState(new Array(OTP_LENGTH).fill(""));
 
 	const checkOTP = (otp) => {
-		if (otp.length === OTPlength) {
+		if (otp.length === OTP_LENGTH) {
 			if (handleSubmit) handleSubmit(otp);
 			else {
 				const storedOTP = AuthService.getOTP();

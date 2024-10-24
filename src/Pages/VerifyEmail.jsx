@@ -21,7 +21,12 @@ const VerifyEmail = () => {
           "token": otpToken
         }
       });
-      navigate('/auth/login/merchant');
+      if(response.status === 200) {
+       localStorage.removeItem('OTPToken');
+       navigate('/auth/login/merchant');
+      } else {
+        return;
+      }
     } catch (error) {
       console.log('error', error)
       setError(error.response?.data.message)
@@ -29,7 +34,6 @@ const VerifyEmail = () => {
         setError(null)
       }, 5000)
     }
-
   }
 
 	return (

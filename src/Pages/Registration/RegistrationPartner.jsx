@@ -18,7 +18,7 @@ const RegistrationPartner = () => {
   const [inputs,setInputs] = useState({
     businessName:'',
     email:'',
-    // countryCode:'+250',
+    countryCode:'+250',
     telephone:'',
     tinNumber:'',
     nationality:'RW',
@@ -37,7 +37,8 @@ const RegistrationPartner = () => {
   }
 
   const onClickHandler = (item) => {
-    setInputs({ ...inputs,countryCode:item.value })
+    // console.log(item.dial_code);
+    setInputs({ ...inputs,countryCode:item.dial_code })
     closeCountryCode()
   }
 
@@ -54,19 +55,19 @@ const RegistrationPartner = () => {
     e.preventDefault()
     setIsFetching(true)
     setError(null);
-
-    const payload = {
-      businessName: inputs.businessName.trim(),
-      email: inputs.email.trim(),
-      telephone: inputs.telephone.trim(),
-      tinNumber: inputs.tinNumber.trim(),
-      nationality: inputs.nationality,
-      pin: inputs.pin.trim(),
-      businessDescription: inputs.businessDescription.trim(),
-      isTermsAccepted: inputs.isTermsAccepted ? 'Y' : 'N'
-    };
     
     try {
+      const payload = {
+        businessName: inputs.businessName.trim(),
+        email: inputs.email.trim(),
+        telephone: `${inputs.countryCode.slice(1, inputs.countryCode.length)}${inputs.telephone.trim()}`,
+        tinNumber: inputs.tinNumber.trim(),
+        nationality: inputs.nationality,
+        pin: inputs.pin.trim(),
+        businessDescription: inputs.businessDescription.trim(),
+        isTermsAccepted: inputs.isTermsAccepted ? 'Y' : 'N'
+      };
+      
       const response = await apiRequest.post('/corporate/registration', payload, { 
         headers: {
           "Content-Type": "application/json"
@@ -74,21 +75,15 @@ const RegistrationPartner = () => {
       });
       const otpToken = response.data.token;
       localStorage.setItem('OTPToken', otpToken);
-      // setInputs({
-      //   countryCode:'+250',
-      //   telephone:'',
-      //   email:'',
-      //   password:'',
-      // })
       setInputs({
         businessName: '',
         email: '',
         telephone: '',
+        countryCode:'+250',
         tinNumber: '',
         pin: '',
         businessDescription: '',
         isTermsAccepted: '',
-        nationality: '',
       })
       setIsFetching(false)
       navigate('/auth/verify-email');
@@ -131,7 +126,7 @@ const RegistrationPartner = () => {
                     <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-1 cursor-pointer 2xl:p-2'>
                       <p className=''>{Countries.find(option => option.dial_code === inputs.countryCode)?.dial_code}</p>
                     </div>
-                    <input type='text' name='telephone' value={inputs.telephone} placeholder='0 7XX XXX XXX'
+                    <input type='text' name='telephone' value={inputs.telephone} placeholder='XXX XXX XXX'
                       className='w-full p-1 border rounded-lg 2xl:p-2' onChange={handleChange} />
                   </div>
                 </div>
@@ -139,24 +134,6 @@ const RegistrationPartner = () => {
                     <ul ref={dropDownCountyCodeRef}>
                       {Countries.map((option, index) => (
                         <MenuOption key={index} item={option} handleClick={() => onClickHandler(option)} />
-                      ))}
-                    </ul>
-                  </div>}
-              </div>
-              <div className="relative">
-                <div className='flex flex-col w-full my-1'>
-                  <label htmlFor="Telephone" className='text-sm font-bold 2xl:text-lg'>Nationality*</label>
-                  <div className="flex items-center border rounded-lg" onClick={() => setToggleCountry(!toggleCountry)}>
-                    <div className='p-1 cursor-pointer 2xl:p-2'>
-                      <p className='w-6 h-4'>{Countries.find(option => option.code === inputs.nationality)?.flag}</p>
-                    </div>
-                    <p className='w-full p-1 border rounded-lg 2xl:p-2'>{Countries.find(option => option.code === inputs.nationality)?.name}</p>
-                  </div>
-                </div>
-                {toggleCountry && <div className="absolute left-0 z-50 bg-white border border-gray-300 rounded-lg shadow-lg top-18">
-                    <ul ref={dropDownCountryRef}>
-                      {Countries.map((option, index) => (
-                        <MenuOption key={index} item={option} handleClick={() => onClickHandlerCountry(option)} />
                       ))}
                     </ul>
                   </div>}
