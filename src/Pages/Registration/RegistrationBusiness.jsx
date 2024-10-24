@@ -88,36 +88,36 @@ const RegistrationBusiness = () => {
   }
 
   return (
-    <div className='w-full h-full flex items-center justify-center'>
+    <div className='flex items-center justify-center w-full h-full'>
       <Notification failure={error} color={'red'} />
-      <div className="flex-1 w-full h-full flex flex-col items-center justify-center p-4 overflow-y-auto">
-        <h2 className='text-2xl 2xl:text-4xl font-bold text-center mb-2'>Register for <span className='text-main'>Business</span> Account</h2>
+      <div className="flex flex-col items-center justify-center flex-1 w-full h-full p-4 overflow-y-auto">
+        <h2 className='mb-2 text-2xl font-bold text-center 2xl:text-4xl'>Register for <span className='text-main'>Business</span> Account</h2>
         <p className='text-sm 2xl:text-lg text-center text-gray-400 mb-4 max-w-[450px]'>
           Please fill out the form below to start saving and making deposits to your favorite brands.
         </p>
-        <div className="w-full flex flex-col items-center justify-center">
-          <form className='w-full xl:w-3/4 2xl:w-2/3 p-4 border border-gray-300 p-2 xl:p-4 rounded-lg' onSubmit={handleSubmit}>
+        <div className="flex flex-col items-center justify-center w-full">
+          <form className='w-full p-2 p-4 border border-gray-300 rounded-lg xl:w-3/4 2xl:w-2/3 xl:p-4' onSubmit={handleSubmit}>
             <div className="">
               <div className='flex flex-col w-full my-1'>
-                <label htmlFor="email" className='text-sm 2xl:text-lg font-bold'>Business Name*</label>
+                <label htmlFor="email" className='text-sm font-bold 2xl:text-lg'>Business Name*</label>
                 <input type='text' name='name' value={inputs.telephone} placeholder='Name'
-                  className='p-1 xl:p-2 border rounded-lg' onChange={handleChange} />
+                  className='p-1 border rounded-lg xl:p-2' onChange={handleChange} />
               </div>
-              <div className="flex flex-col lg:flex-row items-center gap-2">
-                <div className='flex-1 flex flex-col w-full my-1'>
-                  <label htmlFor="email" className='text-sm 2xl:text-lg font-bold'>Email*</label>
+              <div className="flex flex-col items-center gap-2 lg:flex-row">
+                <div className='flex flex-col flex-1 w-full my-1'>
+                  <label htmlFor="email" className='text-sm font-bold 2xl:text-lg'>Email*</label>
                   <input type='email' name='email' value={inputs.email} placeholder='Email'
-                    className='p-1 xl:p-2 border rounded-lg' onChange={handleChange} />
+                    className='p-1 border rounded-lg xl:p-2' onChange={handleChange} />
                 </div>
-                <div className="flex-1 w-full relative">
+                <div className="relative flex-1 w-full">
                   <div className='flex flex-col w-full my-1'>
-                    <label htmlFor="Telephone" className='text-sm 2xl:text-lg font-bold'>Telephone*</label>
+                    <label htmlFor="Telephone" className='text-sm font-bold 2xl:text-lg'>Telephone*</label>
                     <div className="flex items-center border rounded-lg">
-                      <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-1 xl:p-2 cursor-pointer'>
+                      <div onClick={() => setToggleCountryCode(!toggleCountryCode)} className='p-1 cursor-pointer xl:p-2'>
                         <p className=''>{Countries.find(option => option.dial_code === inputs.countryCode)?.dial_code}</p>
                       </div>
                       <input type='text' name='telephone' value={inputs.telephone} placeholder='0 7XX XXX XXX'
-                        className='p-1 2xl:p-2 border rounded-lg w-full' onChange={handleChange} />
+                        className='w-full p-1 border rounded-lg 2xl:p-2' onChange={handleChange} />
                     </div>
                   </div>
                   {toggleCountryCode &&
@@ -130,15 +130,15 @@ const RegistrationBusiness = () => {
                     </div>}
                 </div>
               </div>
-              <div className="flex flex-col lg:flex-row items-center gap-2">
-                <div className="flex-1 w-full relative">
+              <div className="flex flex-col items-center gap-2 lg:flex-row">
+                <div className="relative flex-1 w-full">
                   <div className='flex flex-col w-full my-1'>
-                    <label htmlFor="Telephone" className='text-sm 2xl:text-lg font-bold'>Nationality*</label>
+                    <label htmlFor="Telephone" className='text-sm font-bold 2xl:text-lg'>Nationality*</label>
                     <div className="flex items-center border rounded-lg" onClick={() => setToggleCountry(!toggleCountry)}>
-                      <div className='p-1 2xl:p-2 cursor-pointer'>
+                      <div className='p-1 cursor-pointer 2xl:p-2'>
                         <p className='w-6 h-4'>{Countries.find(option => option.code === inputs.nationality)?.flag}</p>
                       </div>
-                      <p className='p-1 2xl:p-2 border rounded-lg w-full'>{Countries.find(option => option.code === inputs.nationality)?.name}</p>
+                      <p className='w-full p-1 border rounded-lg 2xl:p-2'>{Countries.find(option => option.code === inputs.nationality)?.name}</p>
                     </div>
                   </div>
                   {toggleCountry &&
@@ -150,28 +150,28 @@ const RegistrationBusiness = () => {
                       </ul>
                     </div>}
                 </div>
-                <div className='flex-1 flex flex-col w-full my-1'>
-                  <label htmlFor="email" className='text-sm 2xl:text-lg font-bold'>Tin Number*</label>
+                <div className='flex flex-col flex-1 w-full my-1'>
+                  <label htmlFor="email" className='text-sm font-bold 2xl:text-lg'>Tin Number*</label>
                   <input type='text' name='indentitication' value={inputs.email} placeholder='Number'
-                    className='p-1 2xl:p-2 border rounded-lg' onChange={handleChange} />
+                    className='p-1 border rounded-lg 2xl:p-2' onChange={handleChange} />
                 </div>
               </div>
-              <div className="flex flex-col lg:flex-row items-center gap-2">
+              <div className="flex flex-col items-center gap-2 lg:flex-row">
                 <div className='flex flex-col w-full my-1'>
-                  <label htmlFor="password" className='text-sm 2xl:text-lg font-bold'>Password*</label>
+                  <label htmlFor="password" className='text-sm font-bold 2xl:text-lg'>Password*</label>
                   <div className="flex items-center border rounded-lg">
                     <input type={passwordType} name='password' value={inputs.password} placeholder='Password'
-                      className='p-1 2xl:p-2 w-full rounded-lg' onChange={handleChange} />
+                      className='w-full p-1 rounded-lg 2xl:p-2' onChange={handleChange} />
                     <div onClick={togglePassword} className='p-2 cursor-pointer' data-testid='toggle-password-button'>
                       {passwordType !== 'text' ? <img src={eye} alt='eye-Icon' /> : <img src={eyeCrossed} alt='eyeCrossed-Icon' />}
                     </div>
                   </div>
                 </div>
                 <div className='flex flex-col w-full my-1'>
-                  <label htmlFor="confirmPassword" className='text-sm 2xl:text-lg font-bold'>Confirm Password*</label>
+                  <label htmlFor="confirmPassword" className='text-sm font-bold 2xl:text-lg'>Confirm Password*</label>
                   <div className="flex items-center border rounded-lg">
                     <input type={confirmPasswordType} name='confirmPassword' value={inputs.password} placeholder='Password'
-                      className='p-1 2xl:p-2 w-full rounded-lg' onChange={handleChange} />
+                      className='w-full p-1 rounded-lg 2xl:p-2' onChange={handleChange} />
                     <div onClick={toggleConfirmPassword} className='p-2 cursor-pointer' data-testid='toggle-password-button'>
                       {confirmPasswordType !== 'text' ? <img src={eye} alt='eye-Icon' /> : <img src={eyeCrossed} alt='eyeCrossed-Icon' />}
                     </div>
@@ -179,35 +179,35 @@ const RegistrationBusiness = () => {
                 </div>
               </div>
               <div className='flex flex-col w-full my-1'>
-                <label htmlFor="address" className='text-sm 2xl:text-lg font-bold'>Address*</label>
+                <label htmlFor="address" className='text-sm font-bold 2xl:text-lg'>Address*</label>
                 <input type='text' name='address' value={inputs.telephone} placeholder='Address'
-                  className='p-1 2xl:p-2 border rounded-lg' onChange={handleChange} />
+                  className='p-1 border rounded-lg 2xl:p-2' onChange={handleChange} />
               </div>
             </div>
             <div className='my-1'>
-              <input type="checkbox" className='mr-1 accent-main cursor-pointer' checked={inputs.isTermsAgreed} required onClick={handleTermsAndConditions} />
+              <input type="checkbox" className='mr-1 cursor-pointer accent-main' checked={inputs.isTermsAgreed} required onClick={handleTermsAndConditions} />
               <label htmlFor="agreeTerms">
               I agree to the
               <Link to='https://savedirectly.com/terms.html' target="_blank">
-                <span className='text-main font-bold ml-1'>Terms and Conditions</span>
+                <span className='ml-1 font-bold text-main'>Terms and Conditions</span>
               </Link> and 
               <Link to='https://savedirectly.com/privacy.html' target="_blank">
-                <span className='text-main font-bold ml-1'>Privacy Policy</span>.
+                <span className='ml-1 font-bold text-main'>Privacy Policy</span>.
               </Link>
             </label>
             </div>
-            <button type='submit' className='flex items-center justify-start px-4 py-2 text-md text-white bg-main rounded-lg font-semibold shadow-sm' disabled={isFetching}>
-              {isFetching && <div className="loading-spinner w-full mr-2"><Loading color={'white'} /></div>}
+            <button type='submit' className='flex items-center justify-start px-4 py-2 font-semibold text-white rounded-lg shadow-sm text-md bg-main' disabled={isFetching}>
+              {isFetching && <div className="w-full mr-2 loading-spinner"><Loading color={'white'} /></div>}
               {isFetching? 'Registering...' : 'Sign Up'}
             </button>
             <p className='my-2'>Do you have an account?
-              <Link to='/auth/login/merchant'><span className='text-main font-bold ml-1'>Sign In</span></Link>
+              <Link to='/auth/login/merchant'><span className='ml-1 font-bold text-main'>Sign In</span></Link>
             </p>
           </form>
         </div>
       </div>
-      <div className="hidden md:flex flex-1 h-full">
-        <img src={businessImg} alt="business registration" className="w-full h-full object-cover" />
+      <div className="flex-1 hidden h-full md:flex">
+        <img src={businessImg} alt="business registration" className="object-cover w-full h-full" />
       </div>
     </div>
   )
