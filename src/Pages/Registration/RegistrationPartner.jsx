@@ -21,7 +21,6 @@ const RegistrationPartner = () => {
     countryCode:'+250',
     telephone:'',
     tinNumber:'',
-    nationality:'RW',
     pin: '',
     businessDescription:'',
     isTermsAccepted: false,
@@ -30,25 +29,18 @@ const RegistrationPartner = () => {
   const closeCountryCode = () => setToggleCountryCode(false)
   const closeCountry = () => setToggleCountry(false)
   const dropDownCountyCodeRef = useClickOutside(closeCountryCode)
-  const dropDownCountryRef = useClickOutside(closeCountry)
 
   const handleChange = (e) => {
     setInputs({ ...inputs,[e.target.name]:e.target.value })
   }
 
   const onClickHandler = (item) => {
-    // console.log(item.dial_code);
     setInputs({ ...inputs,countryCode:item.dial_code })
     closeCountryCode()
   }
 
   const handleTermsAndConditions = () => {
     setInputs({ ...inputs,isTermsAccepted:!inputs.isTermsAccepted })
-  }
-
-  const onClickHandlerCountry = (item) => {
-    setInputs({ ...inputs,nationality:item.value })
-    closeCountryCode()
   }
 
   const handleSubmit = async (e) => {
