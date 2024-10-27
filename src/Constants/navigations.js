@@ -43,6 +43,11 @@ export const accountNavigations = [
     name: 'My Wallet',
     path: '/wallet'
   },
+  {
+    id: 5,
+    name: 'Pending Approvals',
+    path: '/pending-approvals'
+  }
 ]
 
 export const countryCodeOptions = [

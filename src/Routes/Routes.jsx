@@ -8,6 +8,7 @@ import MyWallet from '../Pages/MyWallet'
 import MySavings from '../Pages/MySavings'
 import PaymentRequest from '../Pages/PaymentRequest'
 import PaymentHandler from '../Pages/PaymentHandler'
+import PendingApprovals from '../Pages/PendingApprovals'
 
 
 const MyRoutes = () => {
@@ -22,6 +23,7 @@ const MyRoutes = () => {
         <Route path='/wallet' element={<MyWallet />} />
         <Route path='/products/:categoryId/:merchantId/:productId/payment/:paymentId' element={<PaymentHandler />} />
         <Route path='/payment-request' element={<PaymentRequest />} />
+        <Route path='/pending-approvals' element={<PendingApprovals />} />
       </Routes>
     </div>
     )

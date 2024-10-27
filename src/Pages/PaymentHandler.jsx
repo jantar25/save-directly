@@ -17,9 +17,6 @@ const PaymentHandler = () => {
   const selectedCategoryProducts = data.find(category => category.productId === categoryId)
   const selectedMerchantProducts = selectedCategoryProducts?.merchants.find(merchant => merchant.merchantId === merchantId)
 
-  console.log(selectedMerchantProducts)
-
-
   const closeSavingModal = () => {
     setTogglePaymentMode("")
   }
