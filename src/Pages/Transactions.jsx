@@ -90,7 +90,7 @@ const Transactions = () => {
           </thead>
           <tbody>
             {currentTransactions.map((transaction, index) => (
-              <tr key={transaction.transactionId} className={`bg-${index % 2 === 0 ? 'main-dark' : 'gray-800'} text-white`}>
+              <tr key={transaction.transactionId} className={`bg-${index % 2 === 0 ? 'main-dark' : 'gray-800'} text-white text-center`}>
                 <td className='p-2'>{transaction.transactionId}</td>
                 <td className='p-2'>
                   <h3 className='text-lg font-bold text-main'>{transaction.productCategory}</h3>
