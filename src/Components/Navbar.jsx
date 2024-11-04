@@ -41,7 +41,6 @@ const Navbar = () => {
           <h1>Save<span className='text-main'>Directly</span></h1>
         </NavLink>
       </div>
-
       <div className='flex items-center justify-between gap-4'>
         {!token &&
           <div className='items-center justify-between hidden lg:flex'>
@@ -62,27 +61,57 @@ const Navbar = () => {
               <button className='px-4 py-2 font-bold text-white text-md md:text-xl'>Corporate</button>
             </Link>
           </div>:
-          <div
-            className='w-[40px] h-[40px] rounded-full bg-headers flex items-center justify-center ml-4 cursor-pointer border-2 border-white'
-            onClick={() => setToggleProfile(!toggleProfile)}>
-            {currentUser?.userPicture?
-              <img src={ currentUser?.userPicture } alt="Client-Img" className="object-cover w-full h-full rounded-full" />:
-              <img src={ userIcon } alt="Client-Icon" className="object-cover w-full h-full rounded-full" />}
-          </div>
+          <>
+            <div className='items-center justify-between hidden md:flex'>
+              {accountNavigations.slice(1).map((nav) => (
+                <NavLink 
+                  key={nav.id} 
+                  to={nav.path} 
+                  className={({ isActive }) => isActive? navLinkActive : ''}
+                >
+                    <span className='mx-2 font-semibold text-white duration-200 ease-in text-md hover:border-b-4 border-main'>{nav.name}</span>
+                  </NavLink>
+                  ))
+              }
+            </div>
+            <div
+              className='w-[40px] h-[40px] rounded-full bg-headers flex items-center justify-center ml-4 cursor-pointer border-2 border-white'
+              onClick={() => setToggleProfile(!toggleProfile)}>
+              {currentUser?.userPicture?
+                <img src={ currentUser?.userPicture } alt="Client-Img" className="object-cover w-full h-full rounded-full" />:
+                <img src={ userIcon } alt="Client-Icon" className="object-cover w-full h-full rounded-full" />}
+            </div>
+          </>
         }
       </div>
       {toggleProfile &&
         <div data-testid='profile-dropdown' className='absolute top-[8vh] right-4 lg:right-24 shadow-xl bg-gray-100 min-w-[270px] p-2 rounded-xl' ref={ dropDownProfilRef }>
           <div className="flex flex-col items-center justify-start py-4 bg-white rounded-xl">
             <div className='flex flex-col items-center justify-center'>
-              {accountNavigations.map((nav) => (
-                <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive? 'bg-main my-1 w-full text-center p-2 rounded-md text-white'
-                : 'my-1 w-full text-center p-2 rounded-md hover:bg-main hover-text-white'} onClick={ closeProfile }>
-                  <span className='text-xl font-semibold'>{nav.name}</span>
-                </NavLink>
-                ))
+              {
+                <>
+                  <NavLink 
+                    key={accountNavigations[0].id} 
+                    to={accountNavigations[0].path} 
+                    className={({ isActive }) => isActive ? 'bg-main my-1 w-full text-center p-2 rounded-md text-white' : 'my-1 w-full text-center p-2 rounded-md hover:bg-main hover-text-white'} 
+                    onClick={ closeProfile }
+                  >
+                    <span className='text-xl font-semibold'>{accountNavigations[0].name}</span>
+                  </NavLink>
+                  
+                  {accountNavigations.slice(1).map((nav) => (
+                    <NavLink 
+                      key={nav.id} 
+                      to={nav.path} 
+                      className={({ isActive }) => isActive ? 'bg-main my-1 w-full text-center p-2 rounded-md text-white md:hidden' : 'my-1 w-full text-center p-2 rounded-md hover:bg-main hover-text-white md:hidden'}
+                      onClick={ closeProfile }
+                    >
+                        <span className='text-xl font-semibold'>{nav.name}</span>
+                      </NavLink>
+                      ))
+                  }
+                </>
               }
-
             </div>
             <hr className='border border-gray-200 w-[90%]'/>
             <div data-testid='logout-button' className="flex items-center justify-start px-4 py-2 mt-4 cursor-pointer hover:bg-gray-100 rounded-xl" onClick={ logOut }>
