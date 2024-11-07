@@ -91,7 +91,7 @@ const RegistrationBusiness = () => {
     <div className='flex items-center justify-center w-full h-full'>
       <Notification failure={error} color={'red'} />
       <div className="flex flex-col items-center justify-center flex-1 w-full h-full p-4 overflow-y-auto">
-        <h2 className='mb-2 text-2xl font-bold text-center 2xl:text-4xl'>Register for <span className='text-main'>Business</span> Account</h2>
+        <h2 className='mb-2 text-2xl font-bold text-center 2xl:text-4xl'>Register for <span className='text-main'>Merchant</span> Account</h2>
         <p className='text-sm 2xl:text-lg text-center text-gray-400 mb-4 max-w-[450px]'>
           Please fill out the form below to start saving and making deposits to your favorite brands.
         </p>
