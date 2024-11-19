@@ -89,7 +89,7 @@ const LoginBusiness = () => {
         <img src={businessImg} alt="business registration" className="object-cover w-full h-full" />
       </div>
       <div className="flex flex-col items-center justify-center flex-1 w-full h-full p-2">
-        <h2 className='mb-2 text-2xl font-bold text-center md:text-4xl'>Merchant<span className='ml-2 text-main'>Account</span></h2>
+        <h2 className='mb-2 text-2xl font-bold text-center md:text-4xl'>Corporate<span className='ml-2 text-main'>Account</span></h2>
         <p className='text-md md:text-xl text-center text-gray-400 mb-8 max-w-[450px]'>
           Fill the form below to continue where you left with your saving.
         </p>
@@ -120,7 +120,7 @@ const LoginBusiness = () => {
             {/* <Link to='/auth/forgetPassword'><p className='my-2 text-sm font-bold text-main md:text-lg'>Forgot Password?</p></Link> */}
             <button type='submit' className='flex items-center justify-start px-4 py-2 font-semibold text-white rounded-lg shadow-sm text-md bg-main' disabled={isFetching}>
               {isFetching && <div className="w-full mr-2 loading-spinner"><Loading color={'white'} /></div>}
-              {isFetching? 'Logging...' : 'Login In'}
+              {isFetching? 'Logging...' : 'Login'}
             </button>
           </form>
         </div>

@@ -23,7 +23,7 @@ const VerifyEmail = () => {
       });
       if(response.status === 200) {
        localStorage.removeItem('OTPToken');
-       navigate('/auth/login/merchant');
+       navigate('/auth/login/corporate');
       } else {
         return;
       }

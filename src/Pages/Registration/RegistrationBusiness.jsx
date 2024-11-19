@@ -367,7 +367,7 @@ const RegistrationBusiness = () => {
 						</button>
 						<p className="my-2">
 							Do you have an account?
-							<Link to="/auth/login/merchant">
+							<Link to="/auth/login/corporate">
 								<span className="ml-1 font-bold text-main">Sign In</span>
 							</Link>
 						</p>
