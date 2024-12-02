@@ -14,7 +14,7 @@ const AuthRoutes = () => {
     <div className="flex-1 w-full h-full overflow-y-auto">
       <Routes>
         <Route path="/login/personal" element={<LoginPersonal/>} />
-        <Route path="/login/merchant" element={<LoginBusiness/>} />
+        <Route path="/login/corporate" element={<LoginBusiness/>} />
         <Route path="/register/personal" element={<RegistrationPersonal/>} />
         <Route path="/register/merchant" element={<RegisterBusiness/>} />
         <Route path="/register/corporate" element={<RegistrationPartner/>} />

@@ -37,7 +37,7 @@ const Navbar = () => {
     <div className='h-[10vh] sticky top-0 z-50 bg-main-dark flex items-center justify-between px-4 lg:px-24'>
       <div className='flex items-center gap-16'>
         <img src={ menuIcon } alt='menu-icon' className='cursor-pointer lg:hidden' onClick={() => setToggleMenu(!toggleMenu)}/>
-        <NavLink to='/' className="hidden text-xl sm:inline-block">
+        <NavLink to='https://savedirectly.com' className="hidden text-xl sm:inline-block">
           <h1>Save<span className='text-main'>Directly</span></h1>
         </NavLink>
       </div>
@@ -57,7 +57,7 @@ const Navbar = () => {
             <Link to='/auth/login/personal'>
               <button className='px-4 py-1 font-bold border border-2 rounded-lg border-main text-md md:text-xl text-main hover:text-orange-500'>Personal</button>
             </Link>
-            <Link to='/auth/login/merchant' className="ml-4 rounded-lg bg-main hover:bg-orange-500">
+            <Link to='/auth/login/corporate' className="ml-4 rounded-lg bg-main hover:bg-orange-500">
               <button className='px-4 py-2 font-bold text-white text-md md:text-xl'>Corporate</button>
             </Link>
           </div>:
