@@ -120,6 +120,7 @@ export const getMerchants = async (dispatch) => {
   dispatch(getMerchantResultsStart())
   try {
     const res = await apiRequest.get('/product/list', { timeout: 30000 })
+    console.log(res.data);
     if (res.data.status === 200) {
       dispatch(
         getMerchantResultsSuccess(res.data.data)
