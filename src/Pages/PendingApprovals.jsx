@@ -1,12 +1,11 @@
 import { useState, useEffect } from "react";
 
 import { apiRequest } from "../Redux/ApiCalls";
-import approuvals from "../Constants/approuvals";
 import Loading from "../Components/Loading";
 import DeductionModal from "../Components/DeductionModal";
 
 const PendingApprovals = () => {
-  const [pendingApprovals, setPendingApprovals] = useState(approuvals);
+  const [pendingApprovals, setPendingApprovals] = useState([]);
   const [selectedApproval, setSelectedApproval] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
