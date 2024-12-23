@@ -62,7 +62,7 @@ const Navbar = () => {
             </Link>
           </div>:
           <>
-            <div className='items-center justify-between hidden md:flex'>
+            <div className='items-center justify-between hidden lg:flex'>
               {accountNavigations.slice(1).map((nav) => (
                 <NavLink 
                   key={nav.id} 
@@ -134,7 +134,7 @@ const Navbar = () => {
       {toggleMenu &&
         <div data-testid='mobile-menu' className='absolute top-[10vh] left-0 right-0 lg:hidden flex flex-col items-center justify-between
          bg-white p-4 border' ref={ dropDownMenuRef }>
-          {navigations.map((nav) => (
+          {accountNavigations.slice(1).map((nav) => (
             <NavLink key={nav.id} to={nav.path} className={({ isActive }) => isActive?  'bg-main my-1 w-full text-center py-2 rounded-md text-white'
             : 'bg-gray-100 my-1 w-full text-center py-2 rounded-md hover:bg-main hover:text-white'} onClick={ closeMenu }>
               <span className='text-xl font-semibold'>{nav.name}</span>
